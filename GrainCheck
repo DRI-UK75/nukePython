@@ -1,0 +1,18 @@
+set cut_paste_input [stack 0]
+version 13.1 v2
+push $cut_paste_input
+push 0
+MergeExpression {
+inputs 2
+expr0 "abs(Br-Ar) > tolerance?1:0 || abs(Bg-Ag) > tolerance? 1:0 || abs(Bb-Ab) > tolerance? 1:0"
+expr1 "abs(Br-Ar) > tolerance?1:0 || abs(Bg-Ag) > tolerance? 1:0 || abs(Bb-Ab) > tolerance? 1:0"
+expr2 "abs(Br-Ar) > tolerance?1:0 || abs(Bg-Ag) > tolerance? 1:0 || abs(Bb-Ab) > tolerance? 1:0"
+expr3 "abs(Br-Ar) > tolerance?1:0 || abs(Bg-Ag) > tolerance? 1:0 || abs(Bb-Ab) > tolerance? 1:0"
+name Diff_Check2
+selected true
+xpos 4909
+ypos 1496
+addUserKnob {20 Tolerance t "Save the bee turn off your screen"}
+addUserKnob {7 tolerance l "" t 0.001 +STARTLINE}
+tolerance 0.001
+}
