@@ -1,0 +1,6729 @@
+set cut_paste_input [stack 0]
+version 13.1 v2
+push 0
+push $cut_paste_input
+Group {
+inputs 2
+name TC_Tool
+knobChanged "\nn = nuke.thisNode()\ndrop_plate = n\['Filter_plate']\nlevel_plate = n\['plotLevel_plate']\ndrop_comp = n\['Filter_comp']\nlevel_comp = n\['plotLevel_comp']\nlevel_plate_comp = n\['plotLevel_plate_comp']\nif drop_plate.value() != 'PlotScanline' and  drop_comp.value() != 'PlotScanline':\n    level_plate.setVisible(False)\n    level_comp.setVisible(False)\n    level_plate_comp.setVisible(False)\nelif drop_plate.value() == 'PlotScanline' and  drop_comp.value() != 'PlotScanline':\n    level_plate.setVisible(True)\n    level_comp.setVisible(False)\n    level_plate_comp.setVisible(False)\n    level_plate_comp.setValue(0.0)\nelif drop_plate.value() != 'PlotScanline' and  drop_comp.value() == 'PlotScanline':\n    level_plate.setVisible(False)\n    level_comp.setVisible(True)\n    level_plate_comp.setVisible(False)\n    level_plate_comp.setValue(0.0)\nelif drop_plate.value() == 'PlotScanline' and  drop_comp.value() == 'PlotScanline':\n    level_plate.setVisible(False)\n    level_plate.setValue(0.0)\n    level_comp.setVisible(False)\n    level_comp.setValue(0.0)\n    level_plate_comp.setVisible(True)\n\ngang_knob = n\['gang']\nif gang_knob.value():\n    n\['Filter_plate'].setValue(n\['Filter_comp'].value())\n"
+tile_color 0x464362ff
+note_font_size 15
+note_font_color 0xd27700ff
+selected true
+xpos 4745
+ypos 4480
+disable true
+addUserKnob {20 QC}
+addUserKnob {26 crops -STARTLINE T ""}
+addUserKnob {22 crop_top_left l "<font color='white'><strong>&#8598;</strong></font color='white'>" T "n = nuke.thisNode()\nk = nuke.thisKnob()\nks = \[]\nTC_cropNode = nuke.toNode(\"\{\}.TC_Crops\".format(n.name()))\ncrop = n\['top_left']\nif crop.value():\n    crop.setValue(False)\n    nuke.thisKnob().setLabel(\"<font color='white'><strong>&#8598;</strong></font color='white'>\")\n    TC_cropNode\['box'].setExpression('0', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width)', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)\nelse:\n    crop.setValue(True)\n    nuke.thisKnob().setLabel(\"<font color='red'><strong>&#8598;</strong></font color='red'>\")\n    n\['crop_top_mid'].setLabel(\"<font color='white'><strong>&#8593;</strong></font color='white'>\")\n    n\['crop_top_right'].setLabel(\"<font color='white'><strong>&#8599;</strong></font color='white'>\")\n    n\['crop_bot_left'].setLabel(\"<font color='white'><strong>&#8601;</strong></font color='white'>\")\n    n\['crop_bottom_mid'].setLabel(\"<font color='white'><strong>&#8595;</strong></font color='white'>\")\n    n\['crop_bottom_right'].setLabel(\"<font color='white'><strong>&#8600;</strong></font color='white'>\")\n    n\['top_mid'].setValue(False)\n    n\['top_right'].setValue(False)\n    n\['bot_left'].setValue(False)\n    n\['bot_mid'].setValue(False)\n    n\['bot_right'].setValue(False)\n    TC_cropNode\['box'].setExpression('curve', 0)\n    TC_cropNode\['box'].setExpression('input.height/2', 1)\n    TC_cropNode\['box'].setExpression('int(input.width/3)', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)" +STARTLINE}
+addUserKnob {22 crop_top_mid l "<font color='white'><strong>&#8593;</strong></font color='white'>" -STARTLINE T "n = nuke.thisNode()\nk = nuke.thisKnob()\nTC_cropNode = nuke.toNode(\"\{\}.TC_Crops\".format(n.name()))\ncrop = n\['top_mid']\nif crop.value():\n    crop.setValue(False)\n    nuke.thisKnob().setLabel(\"<font color='white'><strong>&#8593;</strong></font color='white'>\")\n    TC_cropNode\['box'].setExpression('0', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width)', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)\nelse:\n    crop.setValue(True)\n    nuke.thisKnob().setLabel(\"<font color='red'><strong>&#8593;</strong></font color='red'>\")\n    n\['crop_top_left'].setLabel(\"<font color='white'><strong>&#8598;</strong></font color='white'>\")\n    n\['crop_top_right'].setLabel(\"<font color='white'><strong>&#8599;</strong></font color='white'>\")\n    n\['crop_bot_left'].setLabel(\"<font color='white'><strong>&#8601;</strong></font color='white'>\")\n    n\['crop_bottom_mid'].setLabel(\"<font color='white'><strong>&#8595;</strong></font color='white'>\")\n    n\['crop_bottom_right'].setLabel(\"<font color='white'><strong>&#8600;</strong></font color='white'>\")\n    n\['top_left'].setValue(False)\n    n\['top_right'].setValue(False)\n    n\['bot_left'].setValue(False)\n    n\['bot_mid'].setValue(False)\n    n\['bot_right'].setValue(False)\n    TC_cropNode\['box'].setExpression('int(input.width/3)', 0)\n    TC_cropNode\['box'].setExpression('input.height/2', 1)\n    TC_cropNode\['box'].setExpression('int(input.width/3)*2', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)"}
+addUserKnob {22 crop_top_right l "<font color='white'><strong>&#8599;</strong></font color='white'>" -STARTLINE T "n = nuke.thisNode()\nk = nuke.thisKnob()\nTC_cropNode = nuke.toNode(\"\{\}.TC_Crops\".format(n.name()))\ncrop = n\['top_right']\nif crop.value():\n    crop.setValue(False)\n    nuke.thisKnob().setLabel(\"<font color='white'><strong>&#8599;</strong></font color='white'\")\n    TC_cropNode\['box'].setExpression('0', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width)', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)\nelse:\n    crop.setValue(True)\n    nuke.thisKnob().setLabel(\"<font color='red'><strong>&#8599;</strong></font color='red'>\")\n    n\['crop_top_left'].setLabel(\"<font color='white'><strong>&#8598;</strong></font color='white'>\")\n    n\['crop_top_mid'].setLabel(\"<font color='white'><strong>&#8593;</strong></font color='white'>\")\n    n\['crop_bot_left'].setLabel(\"<font color='white'><strong>&#8601;</strong></font color='white'>\")\n    n\['crop_bottom_mid'].setLabel(\"<font color='white'><strong>&#8595;</strong></font color='white'>\")\n    n\['crop_bottom_right'].setLabel(\"<font color='white'><strong>&#8600;</strong></font color='white'>\")\n    n\['top_mid'].setValue(False)\n    n\['top_left'].setValue(False)\n    n\['bot_left'].setValue(False)\n    n\['bot_mid'].setValue(False)\n    n\['bot_right'].setValue(False)\n    TC_cropNode\['box'].setExpression('int(input.width/3)*2', 0)\n    TC_cropNode\['box'].setExpression('input.height/2', 1)\n    TC_cropNode\['box'].setExpression('int(input.width/3)*3', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)"}
+addUserKnob {22 crop_bot_left l "<font color='white'><strong>&#8601;</strong></font color='white'>" T "n = nuke.thisNode()\nk = nuke.thisKnob()\nTC_cropNode = nuke.toNode(\"\{\}.TC_Crops\".format(n.name()))\ncrop = n\['bot_left']\nif crop.value():\n    crop.setValue(False)\n    nuke.thisKnob().setLabel(\"<font color='white'><strong>&#8601;</strong></font color='white'\")\n    TC_cropNode\['box'].setExpression('0', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width)', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)\nelse:\n    crop.setValue(True)\n    nuke.thisKnob().setLabel(\"<font color='red'><strong>&#8601;</strong></font color='red'>\")\n    n\['crop_top_left'].setLabel(\"<font color='white'><strong>&#8598;</strong></font color='white'>\")\n    n\['crop_top_mid'].setLabel(\"<font color='white'><strong>&#8593;</strong></font color='white'>\")\n    #n\['crop_bottom_left'].setLabel(\"<font color='white'><strong>&#8601;</strong></font color='white'>\")\n    n\['crop_bottom_mid'].setLabel(\"<font color='white'><strong>&#8595;</strong></font color='white'>\")\n    n\['crop_bottom_right'].setLabel(\"<font color='white'><strong>&#8600;</strong></font color='white'>\")\n    n\['top_mid'].setValue(False)\n    n\['top_left'].setValue(False)\n    n\['top_right'].setValue(False)\n    n\['bot_mid'].setValue(False)\n    n\['bot_right'].setValue(False)\n    TC_cropNode\['box'].setExpression('0', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width/3)', 2)\n    TC_cropNode\['box'].setExpression('int(input.height/2)', 3)" +STARTLINE}
+addUserKnob {22 crop_bottom_mid l "<font color='white'><strong>&#8595;</strong></font color='white'>" -STARTLINE T "n = nuke.thisNode()\nk = nuke.thisKnob()\nTC_cropNode = nuke.toNode(\"\{\}.TC_Crops\".format(n.name()))\ncrop = n\['bot_mid']\nif crop.value():\n    crop.setValue(False)\n    nuke.thisKnob().setLabel(\"<font color='white'><strong>&#8595;</strong></font color='white'>\")\n    TC_cropNode\['box'].setExpression('0', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width)', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)\nelse:\n    crop.setValue(True)\n    nuke.thisKnob().setLabel(\"<font color='red'><strong>&#8595;</strong></font color='red'>\")\n    n\['crop_top_left'].setLabel(\"<font color='white'><strong>&#8598;</strong></font color='white'>\")\n    n\['crop_top_mid'].setLabel(\"<font color='white'><strong>&#8593;</strong></font color='white'>\")\n    n\['crop_top_right'].setLabel(\"<font color='white'><strong>&#8599;</strong></font color='white'>\")\n    n\['crop_bot_left'].setLabel(\"<font color='white'><strong>&#8601;</strong></font color='white'>\")\n    n\['crop_bottom_right'].setLabel(\"<font color='white'><strong>&#8600;</strong></font color='white'>\")\n    n\['top_mid'].setValue(False)\n    n\['top_left'].setValue(False)\n    n\['top_right'].setValue(False)\n    n\['bot_left'].setValue(False)\n    n\['bot_right'].setValue(False)\n    TC_cropNode\['box'].setExpression('int(input.width/3)', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width/3)*2', 2)\n    TC_cropNode\['box'].setExpression('int(input.height/2)', 3)"}
+addUserKnob {22 crop_bottom_right l "<font color='white'><strong>&#8600;</strong></font color='white'>" -STARTLINE T "n = nuke.thisNode()\nk = nuke.thisKnob()\nTC_cropNode = nuke.toNode(\"\{\}.TC_Crops\".format(n.name()))\ncrop = n\['bot_right']\nif crop.value():\n    crop.setValue(False)\n    nuke.thisKnob().setLabel(\"<font color='white'><strong>&#8600;</strong></font color='white'>\")\n    TC_cropNode\['box'].setExpression('0', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width)', 2)\n    TC_cropNode\['box'].setExpression('input.height', 3)\nelse:\n    crop.setValue(True)\n    nuke.thisKnob().setLabel(\"<font color='red'><strong>&#8600;</strong></font color='red'>\")\n    n\['crop_top_left'].setLabel(\"<font color='white'><strong>&#8598;</strong></font color='white'>\")\n    n\['crop_top_mid'].setLabel(\"<font color='white'><strong>&#8593;</strong></font color='white'>\")\n    n\['crop_top_right'].setLabel(\"<font color='white'><strong>&#8599;</strong></font color='white'>\")\n    n\['crop_bot_left'].setLabel(\"<font color='white'><strong>&#8601;</strong></font color='white'>\")\n    n\['crop_bottom_mid'].setLabel(\"<font color='white'><strong>&#8595;</strong></font color='white'>\")\n    n\['top_mid'].setValue(False)\n    n\['top_left'].setValue(False)\n    n\['top_right'].setValue(False)\n    n\['bot_mid'].setValue(False)\n    n\['bot_left'].setValue(False)\n    TC_cropNode\['box'].setExpression('int(input.width/3)*2', 0)\n    TC_cropNode\['box'].setExpression('0', 1)\n    TC_cropNode\['box'].setExpression('int(input.width/3)*3', 2)\n    TC_cropNode\['box'].setExpression('int(input.height/2)', 3)"}
+addUserKnob {6 side_plate l "Compare with side plate" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {6 enable_qc l "Enable QC layers" t "This will disable the qc_ layers and let your original comp go through the QC Tool, making interactive viewing faster. \n\nLeave off unless you want to render the QC Pcomp." +STARTLINE}
+addUserKnob {6 top_left l INVISIBLE +INVISIBLE +STARTLINE}
+addUserKnob {6 top_mid l INVISIBLE +INVISIBLE +STARTLINE}
+addUserKnob {6 top_right l INVISIBLE +INVISIBLE +STARTLINE}
+addUserKnob {6 bot_left l INVISIBLE +INVISIBLE +STARTLINE}
+addUserKnob {6 bot_mid l INVISIBLE +INVISIBLE +STARTLINE}
+addUserKnob {6 bot_right l INVISIBLE +INVISIBLE +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {6 validator l INVISIBLE +INVISIBLE +STARTLINE}
+validator true
+addUserKnob {6 precompute_toggle +INVISIBLE +STARTLINE}
+addUserKnob {6 on +INVISIBLE +STARTLINE}
+addUserKnob {6 vplay +INVISIBLE +STARTLINE}
+addUserKnob {4 REF l "Comp against Ref " M {PLATE EDITORIAL LAYOUT ANIMATION LIGHTING GEN}}
+addUserKnob {26 whichview l "current view" T "<font size=\"5\"><font color=red>plate</font>"}
+addUserKnob {22 swizzle l "<font size=\"5\"><font color=#505050>Â¨Â¨Â¨Â¨Â¨<font color=#FFFFFF>compare Ref<font color=#505050>Â¨Â¨Â¨Â¨Â¨</font>" T "import nuke\n\nnuke.thisNode()\['precompute_toggle'].setValue(False)\nk = nuke.thisNode()\nz = nuke.thisKnob()\n\nif k\['validator'].value() == True:\n    k\['validator'].setValue(False)\nelif k\['validator'].value()==False:\n    k\['validator'].setValue(True)\n\n\n\nif nuke.thisNode()\['validator'].value()==True:\n    nuke.thisKnob().setLabel('<font size=\"5\"><font color=#505050>Â¨Â¨Â¨Â¨Â¨<font color=#FFFFFF>compare Ref<font color=#505050>Â¨Â¨Â¨Â¨Â¨</font>')\n    nuke.thisNode()\['whichview'].setValue('<font size=\"5\"><font color=red>Ref</font>')\n\nif nuke.thisNode()\['validator'].value()==False:\n    nuke.thisKnob().setLabel('<font size=\"5\"><font color=#505050>Â¨Â¨Â¨Â¨Â¨<font color=#FFFFFF>compare Comp<font color=#505050>Â¨Â¨Â¨Â¨Â¨</font>')\n    nuke.thisNode()\['whichview'].setValue('<font size=\"5\"><font color=lime>Comp</font>')\n" +STARTLINE}
+addUserKnob {22 autoswizzle l "<font size=\"5\">autocompare</font>" -STARTLINE T "import nuke\nimport time\nimport threading\nnuke.thisNode()\['precompute_toggle'].setValue(False)\nz = nuke.thisKnob()\nif nuke.thisNode()\['on'].value()==False:\n        z.setLabel('<font size=\"5\"><font color = pink>STOP</font>')\nif nuke.thisNode()\['on'].value()==True:\n        z.setLabel('<font size=\"5\">autocompare</font>')\n\n\nclass swizzle( threading.Thread ):\n\n\n        def __init__( self, node ):\n                threading.Thread.__init__( self )\n                self.node = node\n                self.delay = node\['delay']\n                self.on = node\['on']\n                self.validator = node\['validator']\n                self.label = node\['label']\n                self.whichview = node\['whichview']\n\n\n        def run( self ):\n            self.on.setValue( not self.on.value() )\n            onval = self.on.value()\n            while onval and self.node:\n                onval = self.on.value()\n                if self.validator.value() == False:\n                    nuke.executeInMainThreadWithResult( self.validator.setValue, True )\n                elif self.validator.value() == True:\n                    nuke.executeInMainThreadWithResult( self.validator.setValue, False )\n\n\n                if self.validator.value()==True:\n                    nuke.executeInMainThreadWithResult( self.whichview.setValue, '<font size=\"5\"><font color=red>plate</font>' )\n\n\n                if self.validator.value()==False:\n                    nuke.executeInMainThreadWithResult( self.whichview.setValue, '<font size=\"5\"><font color=lime>comp</font>' )\n                time.sleep( self.delay.value() )\n\n\nk = nuke.thisNode()\nv = nuke.activeViewer()\nif k\['vplay'].value():\n    k\['vplay'].setValue(False)\nelse:\n    k\['vplay'].setValue(True)\nswizzle( nuke.thisNode() ).start()\n\n\nif k\['animAuto'].value():\n  fps = k\['frameRate'].value()\n  if k\['vplay'].value():\n    v.node()\['fps'].setValue(int(fps))\n    v.play(1)\n  else:\n    v.stop()\n    v.node()\['fps'].setValue(int(24))\n"}
+addUserKnob {6 animAuto l "Play frames" +STARTLINE}
+animAuto true
+addUserKnob {7 delay l "   |   Delay (secs)" -STARTLINE}
+delay 0.5
+addUserKnob {3 frameRate l fps: -STARTLINE}
+frameRate 1
+addUserKnob {4 Filter_comp l Comp M {Original All Grain "Grain Checker" "Negative Values (log)" "Higlight clipping (log)" "DI Color Space (log)" Luminance Saturation Hue "Black checker" "No saturation" "Super Saturated" "Difference Key" ""}}
+Filter_comp "Difference Key"
+addUserKnob {4 Filter_plate l "     |    Plate" -STARTLINE M {Original All Grain "Grain Checker" "Negative Values (log)" "Higlight clipping (log)" "DI Color Space (log)" Luminance Saturation Hue "Black checker" "No saturation" "Super Saturated" "Difference Key" "" "" "" "" "" "" "" ""}}
+Filter_plate "Difference Key"
+addUserKnob {6 gang l "gang compare" -STARTLINE}
+gang true
+addUserKnob {6 showText l "Show Labels" -STARTLINE}
+addUserKnob {6 compare_checkerBoard l "Compare with CheckerBoard" +STARTLINE}
+addUserKnob {7 Size_of_checkerBoard l "   |   Size  " -STARTLINE R 50 500}
+Size_of_checkerBoard 300
+addUserKnob {7 plotLevel_plate l "plot level plate" +HIDDEN R 0 100}
+addUserKnob {7 plotLevel_comp l "plot level comp" +HIDDEN R 0 100}
+addUserKnob {7 plotLevel_plate_comp l "Level Plate Comp" +HIDDEN R 0 100}
+addUserKnob {26 ""}
+addUserKnob {26 ImageValuesCheckerText l "Image Values Checker" T " "}
+addUserKnob {22 check l "Check pixel values" T "n = nuke.thisNode()\ncurveTool_MAX = nuke.toNode(\"%s.CurveTool_MAX\" % n.name())\nk = curveTool_MAX\['go']\nk.execute()" +STARTLINE}
+addUserKnob {22 reset_pix_val l "Reset values" -STARTLINE T "k = nuke.thisNode()\nn = nuke.toNode(\"%s.CurveTool_MAX\" % k.name())\nif n\['maxlumapixvalue'].isAnimated():\n    n\['maxlumapixvalue'].clearAnimated()\n    n\['minlumapixvalue'].clearAnimated()\nn\['maxlumapixvalue'].setValue(\[0, 0, 0])\nn\['minlumapixvalue'].setValue(\[0, 0, 0])"}
+addUserKnob {41 disable_1 l "check in acescg" -STARTLINE +INVISIBLE T OCIOColorSpace5.disable}
+addUserKnob {18 Max}
+Max {{CurveTool_MAX.maxlumapixvalue} {CurveTool_MAX.maxlumapixvalue} {CurveTool_MAX.maxlumapixvalue}}
+addUserKnob {6 Max_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Max_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {18 Min}
+Min {{CurveTool_MAX.minlumapixvalue} {CurveTool_MAX.minlumapixvalue} {CurveTool_MAX.minlumapixvalue}}
+addUserKnob {6 Min_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Min_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {26 lookcurve l "" +STARTLINE T "\nCheck the curve editor. \nYou should not go over 1.00456 or under 0 in R, G, B. \n(1.00456 = 57.35 in acescg)\n\nDON'T CLAMP YOUR COMP BLACKS\n\n"}
+addUserKnob {22 checkNans l "Check NaNs" T "n = nuke.thisNode()\ncurveTool = nuke.toNode(\"%s.CurveTool_NAN\" % n.name())\nk = curveTool\['go']\nk.execute()" +STARTLINE}
+addUserKnob {22 reset_nan_val l "Reset values" -STARTLINE T "k = nuke.thisNode()\nn = nuke.toNode(\"%s.CurveTool_NAN\" % k.name())\nif n\['maxlumapixvalue'].isAnimated():\n    n\['maxlumapixvalue'].clearAnimated()\n    n\['minlumapixvalue'].clearAnimated()\nn\['maxlumapixvalue'].setValue(\[0, 0, 0])\nn\['minlumapixvalue'].setValue(\[0, 0, 0])"}
+addUserKnob {6 NaN_Vision l "NaN Vision Mode" -STARTLINE}
+addUserKnob {18 Nans}
+Nans {{CurveTool_NAN.maxlumapixvalue} {CurveTool_NAN.maxlumapixvalue} {CurveTool_NAN.maxlumapixvalue}}
+addUserKnob {6 Nans_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 Nans_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {26 expl l "" +STARTLINE T "\nCheck the red channel in the curve editor.\nIt should be flat. If you have a value that is more than 0, it means you have some NaN pixels in your comp."}
+addUserKnob {26 ""}
+addUserKnob {26 bordersChecker_1 l "Borders Checker" -STARTLINE T " "}
+addUserKnob {6 bordersChecker l Enable -STARTLINE}
+addUserKnob {7 borders l Borders R 0 10}
+addUserKnob {6 Anamorphic -STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 DIMaskCheckText l "DI Mask Checker" T " "}
+addUserKnob {6 DI_Mask l Enable -STARTLINE}
+addUserKnob {4 DCP_Mask l "DCP Mask" M {IMAX 2.39 "" ""}}
+addUserKnob {41 value T Multiply1.value}
+addUserKnob {41 mix l opacity T Merge16.mix}
+addUserKnob {26 ""}
+addUserKnob {20 Departments_Statuses l "Departments Statuses"}
+addUserKnob {22 update_statuses l "Update Departements Statuses" T "import unity\nshow = unity.get_show('bosco')\nshot = show.get_shot(os.getenv('SHOT'))\nn = nuke.thisNode()\nfor task in shot.tasks:\n    if task.task_type == 'Animation' and task.description == 'Anim QC':\n        AnimQC_status = task.status\n        n\['AnimQC'].setValue(AnimQC_status)\n\n\n    if task.task_type == 'Comp QC':\n        CompQC_status = task.status\n        n\['CompQC'].setValue(CompQC_status)\n\n\n    if task.task_type == 'Lighting TD' and task.description == 'Lighting QC':\n        LightingQC_status = task.status\n        n\['LightingQC'].setValue(LightingQC_status)\n\n\n    if task.task_type == 'Particule TD':\n        FX_status = task.status\n        n\['FX'].setValue(FX_status)\n\n\n    if task.task_type == 'Mcor':\n        Mcor_status = task.status\n        n\['Mcor'].setValue(Mcor_status)\n\n\n    if task.task_type == 'Layout':\n        Layout_status = task.status\n        n\['Layout'].setValue(Layout_status)\n\n\n    if task.task_type == 'Matchanim':\n        Matchanim_status = task.status\n        n\['Matchanim'].setValue(Matchanim_status)\n\n\n    if task.task_type == 'Creature Sim':\n        Creature_Sim_status = task.status\n        n\['Creature_Sim'].setValue(Creature_Sim_status)\n\n\n    if task.task_type == 'Generalist':\n        Generalist_status = task.status\n        n\['Generalist'].setValue(Generalist_status)\n\n\n    if task.task_type == 'Roto Overall':\n        Roto_Overall_status = task.status\n        n\['Roto_Overall'].setValue(Roto_Overall_status)\n" +STARTLINE}
+addUserKnob {26 Layout l "Layout  :" T " "}
+addUserKnob {26 Matchanim l "Matchanim  :" T " "}
+addUserKnob {26 AnimQC l "Anim QC  :" T " "}
+addUserKnob {26 Creature_Sim l "Creature Sim  :" T " "}
+addUserKnob {26 Mcor l "Mcor  :" T " "}
+addUserKnob {26 LightingQC l "Lighting QC  :" T " "}
+addUserKnob {26 Generalist l "GEN  :" T " "}
+addUserKnob {26 FX l "FX  :" T " "}
+addUserKnob {26 Roto_Overall l "Roto Overall  :" T " "}
+addUserKnob {26 CompQC l "Comp QC  :" T " "}
+}
+BackdropNode {
+inputs 0
+name BackdropNode1
+tile_color 0x388e8e00
+label "Highlight clip to 1"
+note_font_size 42
+xpos -8111
+ypos 6456
+bdwidth 351
+bdheight 400
+}
+BackdropNode {
+inputs 0
+name BackdropNode10
+tile_color 0x4c6c59ff
+label "Borders Checker"
+note_font_size 42
+xpos -4579
+ypos 10065
+bdwidth 592
+bdheight 633
+}
+BackdropNode {
+inputs 0
+name BackdropNode2
+tile_color 0x4c5b6cff
+label "DI Mask Checker"
+note_font_size 42
+xpos -4621
+ypos 10912
+bdwidth 765
+bdheight 679
+}
+BackdropNode {
+inputs 0
+name BackdropNode3
+tile_color 0x71c67100
+label "Negative Values"
+note_font_size 42
+xpos -8517
+ypos 6463
+bdwidth 366
+bdheight 402
+}
+BackdropNode {
+inputs 0
+name BackdropNode33
+tile_color 0x71c67100
+label "Negative Values"
+note_font_size 42
+xpos -2027
+ypos 6640
+bdwidth 366
+bdheight 402
+}
+BackdropNode {
+inputs 0
+name BackdropNode4
+tile_color 0x388e8e00
+label "Highlight clip to 1"
+note_font_size 42
+xpos -1621
+ypos 6633
+bdwidth 351
+bdheight 400
+}
+BackdropNode {
+inputs 0
+name BackdropNode5
+tile_color 0xaaaaaa00
+label "Check HSV"
+note_font_size 42
+xpos -7345
+ypos 6413
+bdwidth 627
+bdheight 414
+}
+BackdropNode {
+inputs 0
+name BackdropNode52
+tile_color 0xaaaaaa00
+label "Check HSV"
+note_font_size 42
+xpos -834
+ypos 6648
+bdwidth 598
+bdheight 417
+}
+BackdropNode {
+inputs 0
+name BackdropNode6
+tile_color 0x4c516cff
+label Crops
+note_font_size 42
+xpos -4791
+ypos 9215
+bdwidth 855
+bdheight 643
+}
+BackdropNode {
+inputs 0
+name BackdropNode7
+tile_color 0x4c616cff
+label "Pixel Values Checker"
+note_font_size 42
+xpos -5232
+ypos 8651
+bdwidth 534
+bdheight 471
+}
+BackdropNode {
+inputs 0
+name BackdropNode8
+tile_color 0x4c5b6cff
+label "Compare with Checkerboard"
+note_font_size 42
+xpos -4234
+ypos 8505
+bdwidth 592
+bdheight 633
+}
+BackdropNode {
+inputs 0
+name BackdropNode9
+tile_color 0x388e8e00
+label "DI Mattes Checker"
+note_font_size 42
+xpos -6465
+ypos 12049
+bdwidth 1607
+bdheight 1009
+z_order 1
+}
+StickyNote {
+inputs 0
+name StickyNote6
+label "This should be black"
+note_font_size 31
+xpos -2013
+ypos 7073
+}
+StickyNote {
+inputs 0
+name StickyNote3
+label "This should be black"
+note_font_size 31
+xpos -1632
+ypos 7071
+}
+StickyNote {
+inputs 0
+name StickyNote2
+label "This should be black"
+note_font_size 31
+xpos -8122
+ypos 6894
+}
+StickyNote {
+inputs 0
+name StickyNote4
+label "This should be black"
+note_font_size 31
+xpos -8503
+ypos 6896
+}
+Input {
+inputs 0
+name Comp
+note_font_size 500
+note_font_color 0xff00ff
+xpos -9692
+ypos 5197
+}
+Dot {
+name Dot30
+xpos -9658
+ypos 5562
+}
+Dot {
+name Dot44
+xpos -9658
+ypos 6045
+}
+set Nc4d01c00 [stack 0]
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message ORIGINAL
+old_message {{79 82 73 71 73 78 65 76}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 8
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text1
+xpos -9692
+ypos 7095
+disable {{!showText}}
+}
+Dot {
+name Dot105
+label Original
+xpos -9658
+ypos 7375
+}
+set Nc4d01400 [stack 0]
+Dot {
+name Dot45
+xpos -9658
+ypos 8795
+}
+Dot {
+name Dot5
+xpos -6289
+ypos 8795
+}
+set Nc4d00c00 [stack 0]
+Dot {
+name Dot34
+xpos -5062
+ypos 8795
+}
+Remove {
+operation keep
+channels rgb
+name Remove1
+xpos -5097
+ypos 8879
+}
+set Nc4d00400 [stack 0]
+CurveTool {
+operation "Max Luma Pixel"
+ROI {0 0 {input.width} {input.height}}
+autocropdata {0 0 {input.width} {input.height}}
+maxlumapixdata {{curve x1001 3699 3717 769 778 786 799 803 812 863 833 840 847 853 862 866 910 911 886 903 895 899 912 924 926 3373 3383 3328 3338 3352 3367 3387 3411 1833 3468 3495 3521 3546 3565 3583 1914 3608 3616 3618 3619 3625 3620 3624 3694 3696 3208 3214 3219 3226 3217 1932 1935 1936 1937 1939 3164 2181 3637 3151 3626 3622 3622 1159 1172 1245 1257 1268 1277 1284 1287 1286 1284 1284 1288 1292 1300 1310 1323 1249 1269 1284 3220 3229 1640 1649 1657 1622 1632 1647 1662 2321 2408 2346 2358 2370 2377 2251 2380 2474 1527 1521 1519 1476 3262 1528 1963 3276 319 318 317 316 314 313 311 310 307 307 305 304 302 300 299 299 296 296 294 293 292 290 289 287 286 286 284 283 282 280 278 278 276 275 274 273 271 270 269 268 267 266 266 264 263 262 260 260 258 256 255 254 252 251 250 249 248 245 245 245 243 242 241 239 238 237 235 234 233 232 230 228 227 225 224 224 222 221 219 218 216 216 214 212 211 209 208 206 205 203 202 201 200 199 197 196 195 193 191 190 188 187 185 183 182 181 179 177 176 176 173 172 171 169 167 166 165 163 162 160 159 158 157 156 154 153 151 150 148 147 145 144 143 142 140 139 137 136 134 133 132 130 129 127 126 125 123 121 119 117 115 113 109 109 105 105 103 101 100 99 97 95 94 92 90 89 85 84 82 80 78 76 73 73 72 70 67 66 65 63 61 60 58 56 55} {curve x1001 1799 1799 1719 1723 1727 1703 1738 1745 1739 1757 1762 1771 1777 1787 1795 1793 1792 1791 1787 1790 1792 1795 1799 1795 1600 1616 1631 1643 1655 1667 1676 1688 934 1718 1729 1742 1750 1757 1765 964 1780 1783 1786 1789 1799 1793 1796 1799 1799 1637 1640 1643 1647 1646 51 53 58 63 71 1636 764 1792 1633 1787 1787 1789 271 277 381 388 393 395 396 395 395 396 397 403 407 413 418 424 217 223 226 1676 1674 290 283 275 285 273 263 258 790 686 775 767 762 754 616 749 727 98 98 97 69 1569 347 818 1571 990 990 990 990 991 991 991 991 992 992 992 993 993 993 993 993 994 994 995 994 994 994 994 995 995 995 996 995 995 995 997 995 996 996 995 995 995 995 995 995 995 995 995 995 996 995 996 995 995 995 995 995 996 996 995 995 995 997 995 995 995 994 994 994 994 994 994 994 994 994 994 994 994 995 995 994 994 994 994 994 995 995 995 995 994 995 995 995 995 995 995 995 995 996 996 996 996 996 996 997 997 997 997 997 997 997 997 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 998 997 997 997 997 997 997 997 997 997 997 997 997 997 997 998 998 998 998 999 999 999 1002 1000 1002 1000 1000 1001 1001 1001 1001 1002 1002 1002 1002 1002 1002 1002 1002 1002 1003 1002 1005 1003 1003 1003 1003 1003 1003 1003 1003 1003 1004 1004 1004}}
+maxlumapixvalue {{curve x1001 40.74998474 40.71874619 34.85946655 33.70358658 32.83034897 30.69326401 31.07398415 29.39477539 28.70589638 28.58150101 28.77770805 27.93804932 27.53190231 27.22114563 26.6080265 25.41114426 24.98641014 24.65283012 23.91969681 24.04841232 23.56111526 21.6509304 9.179420471 3.432688236 1.641602039 1.629882693 1.805663824 1.795898318 1.806640625 1.804687023 1.752929926 1.729492188 2.144531012 1.620117307 1.680664063 1.637695909 1.591796994 1.655273914 1.761718869 3.16015625 1.944335461 2.02734375 2.06054616 2.039062262 1.959341764 1.942382336 1.936523557 1.943359017 1.732421279 0.9135372043 0.9153279066 0.9317690134 0.9006319046 0.9026377201 1.645507932 1.734374881 1.997070432 1.9140625 1.637695432 0.92397964 1.586914063 1.837890387 0.9810010195 1.824218988 1.899413824 1.948241949 2.15234375 2.0703125 2.958984375 2.992183685 2.9453125 2.994140863 2.904296398 3.064453125 3.023437738 3.041015387 2.94921875 2.921875 2.923828363 2.791015625 2.744140625 2.61328125 4.027344227 5.28515625 5.363281727 1.081381559 1.133974075 2.599609852 2.501952648 2.382811308 3.263665676 3.167968035 3.021483898 2.775390863 2.1328125 2.050780773 2.166015387 2.1328125 2.134765863 2.099609613 2.134765863 2.072265625 2.082031012 4.738275051 4.816406727 4.554686546 4.08203125 0.9765505791 2.031249762 1.940429926 0.943832159} {curve x1001 45.15625381 44.9375 32.03542328 31.00128937 30.18068695 28.2569561 28.57504654 27.06158447 26.42057037 26.2622242 26.52025795 25.66534615 25.3006649 24.99238777 24.4447403 23.37436295 23.01495171 22.69010735 21.99631882 22.10514832 21.67357826 19.84650421 6.445509911 2.603068352 1.362305045 1.366211057 1.400390744 1.398437023 1.446288824 1.401367307 1.34570384 1.378906369 1.814452887 1.272460699 1.298828244 1.25097692 1.248046994 1.224609613 1.357422233 2.75390625 1.469726682 1.521484375 1.55078125 1.524414182 1.471060157 1.471679091 1.440429568 1.445312142 1.30078125 1.453467488 1.445070267 1.475800514 1.425802946 1.43503511 1.463866949 1.470703363 1.774413586 1.682617307 1.452148318 1.500133991 1.382812262 1.387694836 1.556083798 1.37988317 1.458984375 1.475585818 1.920898557 1.833984375 2.591796398 2.615230083 2.583984613 2.617188215 2.542968273 2.664061785 2.671875477 2.662108898 2.578124762 2.582031965 2.541015863 2.433594465 2.394531488 2.304687738 3.023437738 3.945312738 4.070313454 1.749674439 1.784665585 2.304687738 2.226561546 2.08788991 2.84960413 2.806640148 2.687499523 2.457031727 1.872070432 1.783202291 1.906250119 1.875977039 1.865234256 1.830078006 1.880859494 1.813476563 1.824218035 4.374994278 4.390624523 4.191405773 3.874999046 1.568490863 1.786132813 1.645507574 1.504911661} 1.16467607}
+minlumapixdata {{curve x1001 1264 387 1092 2544 1800 1627 1531 4244 3688 813 3637 2669 3875 1773 2608 2612 1053 3488 3486 3807 3807 3789 2183 3801 3515 2800 3684 3723 3693 3736 3548 3563 2609 2515 2586 4045 2581 3673 3683 4115 3697 3630 2253 3677 3610 3674 3676 3676 3677 3681 3685 3688 3686 3683 1258 1990 3661 3679 3639 3568 3628 3624 3621 3616 3612 3610 3612 3616 3620 3625 3629 3633 3637 3640 3635 3627 3622 3620 3618 3619 3622 3627 3635 3648 3619 3631 3682 3691 3396 3709 3720 3730 3745 3785 1956 3789 3831 3779 3791 1921 3867 3866 3859 1335 1456 1433 1275 3743 1522 1471 1830 1037 374 177 444 449 424 363 192 311 30 32 18 55 47 1013 1496 1027 1052 964 942 1034 119 28 288 391 158 960 982 12 400 389 288 962 379 971 389 1009 1102 954 376 267 324 334 948 253 250 964 956 57 950 55 355 322 1012 302 960 350 960 349 927 204 442 1034 204 982 1085 211 958 185 954 318 971 938 195 402 177 192 975 936 346 1121 403 960 926 153 403 159 128 384 986 128 957 939 887 136 226 124 253 944 968 963 979 984 937 238 957 232 0 1026 895 74 859 950 344 940 953 804 958 854 273 1029 962 953 890 910 29 873 186 949 954 304 122 856 916 938 888 925 864 912 924 929 924 904 131 283 248 247 202 927 838 256 51 814 810 725 937 46 844 895 834 879 795 77 240 48 857 310 235 27 116 1043 901 821 871 820 902 873 874 880 882 792 885 895 876 785} {curve x1001 4 4 4 4 4 4 4 1801 4 4 4 4 1801 1801 4 4 4 1801 1801 1801 1801 1801 4 1801 1801 4 1801 1801 1801 1801 1801 1801 4 4 4 1801 4 1801 1801 1801 1801 1801 4 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 4 4 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 1801 4 1801 1801 1801 4 4 4 4 1801 4 4 4 36 4 21 47 1 26 28 24 56 142 140 140 26 105 36 20 21 61 64 32 88 18 91 53 52 13 9 146 96 27 15 62 11 12 54 81 14 11 102 7 46 14 71 123 70 41 149 6 12 141 9 35 17 74 55 165 70 84 70 133 36 68 13 40 26 22 37 32 45 114 17 7 37 31 83 35 30 26 109 23 31 62 101 3 30 70 38 28 61 36 23 21 78 102 25 6 18 51 95 36 65 59 0 79 35 48 38 178 0 3 21 33 46 61 70 28 80 37 139 52 14 56 35 16 83 3 6 28 7 15 48 26 80 1 37 83 52 141 90 45 28 47 64 20 36 65 20 1 28 86 44 10 91 14 87 1 13 69 11 148 87 16 13 15 22 51 27 18 6 12 8 6 88 56 64 21 53 55 69 48 133 25 3 67 131}}
+minlumapixvalue {{curve x1001 -0.0001308790088 -6.455061521e-05 -9.140226757e-05 -0.0001607642189 -0.0001663651783 -0.0001380082249 -0.0001766582427 -0.0001685828611 -0.0002381294616 -0.0002107265755 -0.0002024247806 -0.0002384683758 -0.0001240964048 1.212539473e-07 -0.0001529067376 -0.0001199110993 -0.0001528869034 -0.0002774918685 -0.0002344091481 -0.0001488842681 -0.0001867656829 -4.600148714e-06 -0.0002191006788 -1.860303746e-05 -0.0002463286801 -0.0002595274418 -4.439079203e-05 -0.0001134667982 -0.0001350685197 -4.188702587e-05 -0.0003883577301 -0.0005624642363 -0.0002136809635 -0.000229547557 -0.0003469024377 -0.0002150613436 -0.0002348618291 1.788928603e-05 4.336298298e-05 -0.0002641946485 8.148558663e-06 -6.519130693e-05 -0.000219782436 -0.0001063890813 -0.000306369504 -9.114241402e-05 -0.0001403096976 -0.0001215089214 -9.447372577e-05 -0.0001869212283 -9.40562968e-05 -0.0001616496593 -7.665352314e-05 -2.908548049e-05 -6.431232759e-05 -2.385946573e-05 -0.0001062751107 -0.0001880922646 -0.0001492491574 -8.159837307e-05 -8.320940833e-05 -0.0001461494103 -0.0001048438207 -0.0001629579201 -0.0002443773556 -8.732182323e-05 -0.000187993428 -0.0001018058465 -0.0001050872088 -0.0001102715032 -0.0001384036732 -0.000116229101 -9.608429536e-05 -0.0001151541946 -5.251113907e-05 -5.024698839e-05 -0.0001486520778 -0.000109613371 -0.0001462697837 -0.0001705886389 -0.0001144988782 -0.0002013463236 -5.412188693e-05 -4.958782665e-05 2.636372665e-05 1.828248605e-05 -0.000160215699 -9.966150537e-05 -0.000283555768 -8.100428386e-05 -6.318106171e-05 -8.6128166e-05 -2.002864494e-05 0.0001055053508 -9.30514143e-05 -1.328946564e-05 -3.479342922e-05 6.960184692e-05 2.266836964e-05 -0.0002390713198 -7.102285599e-05 -6.531277904e-05 -6.870579091e-05 -0.0001654845983 -8.450991299e-05 -0.0001091282611 -7.347851351e-05 -6.387021131e-05 -0.0001468469854 -0.0001652594656 -0.0003017632698} {curve x1001 8.492425877e-06 -1.728812276e-05 1.30077899e-06 2.109716661e-05 2.92123168e-05 7.328275387e-06 2.123667218e-05 2.84878297e-05 5.368034908e-05 1.742859058e-05 2.021911496e-05 3.439722059e-05 -0.0002150470245 -9.814831719e-05 4.239783721e-06 -5.70193879e-06 4.369069302e-06 6.421526632e-05 3.649000791e-05 -4.025878661e-05 -6.326612493e-05 -6.528048107e-05 2.210030289e-05 -6.453195238e-05 4.540610098e-05 3.059607843e-05 -8.544382581e-05 -8.255158173e-05 -8.75419064e-05 -8.454416093e-05 8.174420509e-05 0.0001109141012 2.358170605e-05 2.84188427e-05 3.296573414e-05 5.177382263e-05 3.56631881e-06 -7.932369772e-05 -0.0001104421826 4.90083803e-05 -7.150471356e-05 -5.251255789e-05 1.704303577e-05 -6.231019506e-05 7.749238648e-06 -0.0001009683256 -0.0001285189355 -9.80434852e-05 -5.465716094e-05 -6.925994239e-05 -8.296989836e-05 -7.373053086e-05 -7.87967947e-05 -9.644044621e-05 -0.000143619036 -6.748981104e-05 -4.988864021e-05 -6.52450035e-05 -5.638646689e-05 -8.326790703e-05 -0.0001131292083 -0.0001322030876 -7.24192796e-05 -9.840764687e-05 -0.0001558075019 -7.444615767e-05 -0.0001717808191 -0.0001542562095 -0.0001229041081 -0.0001274335809 -9.125408542e-05 -9.858550038e-05 -0.0001123540424 -9.918305295e-05 -9.906110063e-05 -8.302729839e-05 -8.076475933e-05 -0.0001029957784 -9.560634498e-05 -8.130108472e-05 -0.0001022823126 -8.910848555e-05 -0.000117718926 -0.0001033557564 -0.0001821347396 -0.0002396881173 -5.847301509e-05 -0.0001353020343 5.912695633e-05 -8.279003669e-05 -4.756446288e-05 -3.468992873e-05 -6.985643995e-05 -0.0001319295698 -6.713688344e-05 -7.061674842e-05 -8.961636922e-05 -0.0001280155557 -0.0001264041639 5.888252781e-05 -6.036391278e-05 -2.378548379e-05 -5.769467316e-05 3.064133853e-05 -6.447162014e-05 -1.345024975e-05 -5.881968536e-05 -0.0001336983696 1.992458601e-05 2.529585254e-05 5.102834984e-05} -0.0003641111252}
+name CurveTool_MAX
+xpos -5096
+ypos 9047
+}
+push $Nc4d00c00
+Dot {
+name Dot23
+xpos -6289
+ypos 12256
+}
+set Nc4cb7800 [stack 0]
+Dot {
+name Dot17
+xpos -6184
+ypos 12256
+}
+set Nc4cb7400 [stack 0]
+Dot {
+name Dot20
+xpos -5668
+ypos 12256
+}
+set Nc4cb7000 [stack 0]
+add_layer {spiderman spiderman.red spiderman.green spiderman.blue spiderman.alpha}
+Shuffle {
+in spiderman
+name Shuffle6
+label "\[value in]-->\[value out]"
+xpos -5405
+ypos 12480
+}
+Remove {
+operation keep
+channels rgb
+name Remove4
+xpos -5405
+ypos 12532
+}
+Expression {
+channel3 alpha
+expr3 rgba.red+rgba.green+rgba.blue
+name Expression6
+xpos -5405
+ypos 12572
+}
+set Nc4cb6400 [stack 0]
+add_layer {qc_DI_matte_spiderman qc_DI_matte_spiderman.red qc_DI_matte_spiderman.green qc_DI_matte_spiderman.blue}
+AddChannels {
+channels qc_DI_matte_spiderman
+name AddChannels22
+xpos -5405
+ypos 13225
+}
+Dot {
+name Dot40
+xpos -5371
+ypos 13445
+}
+set Nc4cb5c00 [stack 0]
+push $Nc4cb7400
+Remove {
+operation keep
+channels rgb
+name Remove10
+xpos -6218
+ypos 12581
+}
+Dot {
+name Dot16
+xpos -6184
+ypos 13111
+}
+Dot {
+name Dot14
+xpos -5955
+ypos 13111
+}
+set Nc4cb5000 [stack 0]
+Dot {
+name Dot18
+xpos -5821
+ypos 13111
+}
+set Nc4cb4c00 [stack 0]
+Dot {
+name Dot27
+xpos -5698
+ypos 13111
+}
+set Nc4cb4800 [stack 0]
+Dot {
+name Dot32
+xpos -5572
+ypos 13111
+}
+set Nc4cb4400 [stack 0]
+Dot {
+name Dot39
+xpos -5440
+ypos 13111
+}
+set Nc5127c00 [stack 0]
+Dot {
+name Dot41
+xpos -5295
+ypos 13111
+}
+Merge2 {
+inputs 2
+name Plus8
+xpos -5329
+ypos 13442
+}
+add_layer {qc_DI_matte_spiderman_over_comp qc_DI_matte_spiderman_over_comp.red qc_DI_matte_spiderman_over_comp.green qc_DI_matte_spiderman_over_comp.blue}
+AddChannels {
+channels qc_DI_matte_spiderman_over_comp
+name AddChannels28
+xpos -5329
+ypos 13482
+}
+Shuffle {
+out qc_DI_matte_spiderman_over_comp
+name Shuffle40
+label "\[value in]-->\[value out]"
+xpos -5329
+ypos 13688
+}
+Remove {
+operation keep
+channels qc_DI_matte_spiderman_over_comp
+name Remove38
+xpos -5329
+ypos 13740
+}
+Dot {
+name Dot184
+xpos -5295
+ypos 14683
+}
+push $Nc4cb5c00
+Dot {
+name Dot88
+xpos -5371
+ypos 13498
+}
+Shuffle {
+out qc_DI_matte_spiderman
+name Shuffle39
+label "\[value in]-->\[value out]"
+xpos -5405
+ypos 13801
+}
+Remove {
+operation keep
+channels qc_DI_matte_spiderman
+name Remove37
+xpos -5405
+ypos 13853
+}
+Dot {
+name Dot183
+xpos -5371
+ypos 14619
+}
+push $Nc4cb7000
+add_layer {sky sky.red sky.green sky.blue}
+Shuffle {
+in sky
+name Shuffle5
+label "\[value in]-->\[value out]"
+xpos -5550
+ypos 12482
+}
+Remove {
+operation keep
+channels rgb
+name Remove3
+xpos -5550
+ypos 12534
+}
+Expression {
+channel3 alpha
+expr3 rgba.red+rgba.green+rgba.blue
+name Expression5
+xpos -5550
+ypos 12574
+}
+set Nc5124800 [stack 0]
+add_layer {qc_DI_matte_sky qc_DI_matte_sky.red qc_DI_matte_sky.green qc_DI_matte_sky.blue}
+AddChannels {
+channels qc_DI_matte_sky
+name AddChannels21
+xpos -5550
+ypos 13223
+}
+Dot {
+name Dot33
+xpos -5516
+ypos 13375
+}
+set Nc50e3c00 [stack 0]
+push $Nc5127c00
+Merge2 {
+inputs 2
+name Plus7
+xpos -5474
+ypos 13372
+}
+add_layer {qc_DI_matte_sky_over_comp qc_DI_matte_sky_over_comp.red qc_DI_matte_sky_over_comp.green qc_DI_matte_sky_over_comp.blue}
+AddChannels {
+channels qc_DI_matte_sky_over_comp
+name AddChannels27
+xpos -5474
+ypos 13576
+}
+Shuffle {
+out qc_DI_matte_sky_over_comp
+name Shuffle38
+label "\[value in]-->\[value out]"
+xpos -5474
+ypos 13681
+}
+Remove {
+operation keep
+channels qc_DI_matte_sky_over_comp
+name Remove36
+xpos -5474
+ypos 13733
+}
+Dot {
+name Dot182
+xpos -5440
+ypos 14555
+}
+push $Nc50e3c00
+Dot {
+name Dot87
+xpos -5516
+ypos 13589
+}
+Shuffle {
+out qc_DI_matte_sky
+name Shuffle37
+label "\[value in]-->\[value out]"
+xpos -5550
+ypos 13797
+}
+Remove {
+operation keep
+channels qc_DI_matte_sky
+name Remove35
+xpos -5550
+ypos 13849
+}
+Dot {
+name Dot181
+xpos -5516
+ypos 14491
+}
+push $Nc4cb7000
+add_layer {matte01 matte01.red matte01.green matte01.blue matte01.alpha}
+Shuffle {
+in matte01
+name Shuffle2
+label "\[value in]-->\[value out]"
+xpos -5682
+ypos 12485
+}
+Remove {
+operation keep
+channels rgb
+name Remove2
+xpos -5682
+ypos 12537
+}
+Expression {
+channel3 alpha
+expr3 rgba.red+rgba.green+rgba.blue
+name Expression1
+xpos -5682
+ypos 12577
+}
+set Nc50e0c00 [stack 0]
+add_layer {qc_DI_matte_matte01 qc_DI_matte_matte01.red qc_DI_matte_matte01.green qc_DI_matte_matte01.blue}
+AddChannels {
+channels qc_DI_matte_matte01
+name AddChannels20
+xpos -5682
+ypos 13220
+}
+Dot {
+name Dot31
+xpos -5648
+ypos 13437
+}
+set Nc50e0400 [stack 0]
+push $Nc4cb4400
+Merge2 {
+inputs 2
+name Plus6
+xpos -5606
+ypos 13434
+}
+add_layer {qc_DI_matte_matte01_over_comp qc_DI_matte_matte01_over_comp.red qc_DI_matte_matte01_over_comp.green qc_DI_matte_matte01_over_comp.blue}
+AddChannels {
+channels qc_DI_matte_matte01_over_comp
+name AddChannels26
+xpos -5606
+ypos 13490
+}
+Shuffle {
+out qc_DI_matte_matte01_over_comp
+name Shuffle36
+label "\[value in]-->\[value out]"
+xpos -5606
+ypos 13678
+}
+Remove {
+operation keep
+channels qc_DI_matte_matte01_over_comp
+name Remove34
+xpos -5606
+ypos 13730
+}
+Dot {
+name Dot180
+xpos -5572
+ypos 14427
+}
+push $Nc50e0400
+Dot {
+name Dot47
+xpos -5648
+ypos 13502
+}
+Shuffle {
+out qc_DI_matte_matte01
+name Shuffle35
+label "\[value in]-->\[value out]"
+xpos -5682
+ypos 13801
+}
+Remove {
+operation keep
+channels qc_DI_matte_matte01
+name Remove33
+xpos -5682
+ypos 13853
+}
+Dot {
+name Dot179
+xpos -5648
+ypos 14363
+}
+push $Nc4cb7000
+add_layer {key key.red key.green key.blue}
+Shuffle {
+in key
+name Shuffle12
+label "\[value in]-->\[value out]"
+xpos -5808
+ypos 12487
+}
+Remove {
+operation keep
+channels rgb
+name Remove7
+xpos -5808
+ypos 12539
+}
+Expression {
+channel3 alpha
+expr3 rgba.red+rgba.green+rgba.blue
+name Expression8
+xpos -5808
+ypos 12579
+}
+set Nc5085000 [stack 0]
+add_layer {qc_DI_matte_key qc_DI_matte_key.red qc_DI_matte_key.green qc_DI_matte_key.blue}
+AddChannels {
+channels qc_DI_matte_key
+name AddChannels19
+xpos -5808
+ypos 13225
+}
+Dot {
+name Dot25
+xpos -5774
+ypos 13370
+}
+set Nc5084800 [stack 0]
+push $Nc4cb4800
+Merge2 {
+inputs 2
+name Plus5
+xpos -5732
+ypos 13367
+}
+add_layer {qc_DI_matte_key_over_comp qc_DI_matte_key_over_comp.red qc_DI_matte_key_over_comp.green qc_DI_matte_key_over_comp.blue}
+AddChannels {
+channels qc_DI_matte_key_over_comp
+name AddChannels25
+xpos -5732
+ypos 13579
+}
+Shuffle {
+out qc_DI_matte_key_over_comp
+name Shuffle34
+label "\[value in]-->\[value out]"
+xpos -5732
+ypos 13682
+}
+Remove {
+operation keep
+channels qc_DI_matte_key_over_comp
+name Remove32
+xpos -5732
+ypos 13734
+}
+Dot {
+name Dot178
+xpos -5698
+ypos 14299
+}
+push $Nc5084800
+Dot {
+name Dot46
+xpos -5774
+ypos 13594
+}
+Shuffle {
+out qc_DI_matte_key
+name Shuffle33
+label "\[value in]-->\[value out]"
+xpos -5808
+ypos 13803
+}
+Remove {
+operation keep
+channels qc_DI_matte_key
+name Remove31
+xpos -5808
+ypos 13855
+}
+Dot {
+name Dot177
+xpos -5774
+ypos 14235
+}
+push $Nc4cb7000
+add_layer {fx fx.red fx.green fx.blue}
+Shuffle {
+in fx
+name Shuffle10
+label "\[value in]-->\[value out]"
+xpos -5931
+ypos 12493
+}
+Remove {
+operation keep
+channels rgb
+name Remove5
+xpos -5931
+ypos 12545
+}
+Expression {
+channel3 alpha
+expr3 rgba.red+rgba.green+rgba.blue
+name Expression10
+xpos -5931
+ypos 12585
+}
+set Nc5039400 [stack 0]
+add_layer {qc_DI_matte_fx qc_DI_matte_fx.red qc_DI_matte_fx.green qc_DI_matte_fx.blue}
+AddChannels {
+channels qc_DI_matte_fx
+name AddChannels18
+xpos -5931
+ypos 13228
+}
+Dot {
+name Dot15
+xpos -5897
+ypos 13432
+}
+set Nc5038c00 [stack 0]
+push $Nc4cb4c00
+Merge2 {
+inputs 2
+name Plus3
+xpos -5855
+ypos 13429
+}
+add_layer {qc_DI_matte_fx_over_comp qc_DI_matte_fx_over_comp.red qc_DI_matte_fx_over_comp.green qc_DI_matte_fx_over_comp.blue}
+AddChannels {
+channels qc_DI_matte_fx_over_comp
+name AddChannels24
+xpos -5855
+ypos 13490
+}
+Shuffle {
+out qc_DI_matte_fx_over_comp
+name Shuffle32
+label "\[value in]-->\[value out]"
+xpos -5855
+ypos 13682
+}
+Remove {
+operation keep
+channels qc_DI_matte_fx_over_comp
+name Remove30
+xpos -5855
+ypos 13734
+}
+Dot {
+name Dot176
+xpos -5821
+ypos 14171
+}
+push $Nc5038c00
+Dot {
+name Dot43
+xpos -5897
+ypos 13511
+}
+Shuffle {
+out qc_DI_matte_fx
+name Shuffle31
+label "\[value in]-->\[value out]"
+xpos -5931
+ypos 13796
+}
+Remove {
+operation keep
+channels qc_DI_matte_fx
+name Remove29
+xpos -5931
+ypos 13848
+}
+Dot {
+name Dot175
+xpos -5897
+ypos 14107
+}
+push $Nc4cb7000
+add_layer {depthZ depthZ.red depthZ.green depthZ.blue}
+Expression {
+channel0 depthZ
+expr0 depthZ.red/1000
+name Expression3
+xpos -6065
+ypos 12450
+}
+Shuffle {
+in depthZ
+name Shuffle1
+label "\[value in]-->\[value out]"
+xpos -6065
+ypos 12490
+}
+Remove {
+operation keep
+channels rgb
+name Remove8
+xpos -6065
+ypos 12542
+}
+Expression {
+channel3 alpha
+expr3 rgba.red
+name Expression9
+xpos -6065
+ypos 12582
+}
+set Nc53d9400 [stack 0]
+add_layer {qc_DI_matte_depthZ qc_DI_matte_depthZ.red qc_DI_matte_depthZ.green qc_DI_matte_depthZ.blue}
+AddChannels {
+channels qc_DI_matte_depthZ
+name AddChannels17
+xpos -6065
+ypos 13222
+}
+Dot {
+name Dot13
+xpos -6031
+ypos 13362
+}
+set Nc53d8c00 [stack 0]
+push $Nc4cb5000
+Merge2 {
+inputs 2
+name Plus1
+xpos -5989
+ypos 13359
+}
+add_layer {qc_DI_matte_depthZ_over_comp qc_DI_matte_depthZ_over_comp.red qc_DI_matte_depthZ_over_comp.green qc_DI_matte_depthZ_over_comp.blue}
+AddChannels {
+channels qc_DI_matte_depthZ_over_comp
+name AddChannels23
+xpos -5989
+ypos 13584
+}
+Shuffle {
+out qc_DI_matte_depthZ_over_comp
+name Shuffle30
+label "\[value in]-->\[value out]"
+xpos -5989
+ypos 13677
+}
+Remove {
+operation keep
+channels qc_DI_matte_depthZ_over_comp
+name Remove28
+xpos -5989
+ypos 13729
+}
+Dot {
+name Dot174
+xpos -5955
+ypos 14043
+}
+push $Nc53d8c00
+Dot {
+name Dot42
+xpos -6031
+ypos 13595
+}
+Shuffle {
+out qc_DI_matte_depthZ
+name Shuffle29
+label "\[value in]-->\[value out]"
+xpos -6065
+ypos 13792
+}
+Remove {
+operation keep
+channels qc_DI_matte_depthZ
+name Remove27
+xpos -6065
+ypos 13844
+}
+Dot {
+name Dot173
+xpos -6031
+ypos 13979
+}
+push $Nc4cb7800
+LayerContactSheet {
+width {{parent.width}}
+height {{parent.height}}
+center true
+name LayerContactSheet1
+xpos -6608
+ypos 12586
+}
+add_layer {qc_DI_all_mattes qc_DI_all_mattes.red qc_DI_all_mattes.green qc_DI_all_mattes.blue}
+AddChannels {
+channels qc_DI_all_mattes
+name AddChannels16
+xpos -6613
+ypos 13118
+}
+Remove {
+operation keep
+channels qc_DI_all_mattes
+name Remove26
+xpos -6608
+ypos 13841
+}
+Dot {
+name Dot170
+xpos -6574
+ypos 13915
+}
+Constant {
+inputs 0
+color 1
+name Constant3
+xpos -4145
+ypos 11031
+}
+Reformat {
+format "2048 858 0 0 2048 858 1 2.39 DCP Cinema"
+resize none
+black_outside true
+name Reformat7
+xpos -4145
+ypos 11119
+}
+Reformat {
+format "2156 1136 0 0 2156 1136 1 BOSCO_2k_WorkArea_2156x1136"
+resize none
+black_outside true
+name Reformat8
+xpos -4145
+ypos 11170
+}
+Crop {
+box {0 0 2156 1136}
+name Crop1
+xpos -4145
+ypos 11212
+}
+Reformat {
+filter impulse
+name Reformat9
+xpos -4145
+ypos 11254
+}
+set Nc5337400 [stack 0]
+Invert {
+name Invert3
+xpos -4023
+ypos 11413
+}
+Multiply {
+value {0.3 1 1 1}
+name Multiply3
+xpos -4023
+ypos 11501
+}
+Dot {
+name Dot11
+xpos -3989
+ypos 11718
+}
+Constant {
+inputs 0
+color 1
+name Constant1
+xpos -4287
+ypos 11034
+}
+Reformat {
+format "2048 1080 0 0 2048 1080 1 IMAX DCP Cinema"
+resize none
+black_outside true
+name Reformat2
+xpos -4287
+ypos 11122
+}
+Reformat {
+format "2156 1136 0 0 2156 1136 1 BOSCO_2k_WorkArea_2156x1136"
+resize none
+black_outside true
+name Reformat3
+xpos -4287
+ypos 11173
+}
+Crop {
+box {0 0 2156 1136}
+name Crop2
+xpos -4287
+ypos 11215
+}
+Reformat {
+filter impulse
+name Reformat4
+xpos -4287
+ypos 11257
+}
+set Nc5334800 [stack 0]
+Invert {
+name Invert2
+xpos -4147
+ypos 11412
+}
+Multiply {
+value {1 0.3 1 1}
+name Multiply2
+xpos -4147
+ypos 11497
+}
+Dot {
+name Dot10
+xpos -4113
+ypos 11651
+}
+Input {
+inputs 0
+name Ref
+note_font_size 500
+note_font_color 0xff00ff
+xpos -3202
+ypos 5316
+number 1
+}
+Dot {
+name Dot7
+xpos -3168
+ypos 5656
+}
+Dot {
+name Dot48
+xpos -3168
+ypos 6222
+}
+set Nc52ea800 [stack 0]
+push $Nc4d01c00
+Dot {
+name Dot49
+xpos -9108
+ypos 6045
+}
+set Nc52ea400 [stack 0]
+Dot {
+name Dot50
+xpos -8415
+ypos 6045
+}
+set Nc52ea000 [stack 0]
+Dot {
+name Dot51
+xpos -8029
+ypos 6045
+}
+set Nc52e9c00 [stack 0]
+Dot {
+name Dot108
+xpos -7491
+ypos 6045
+}
+set Nc52e9800 [stack 0]
+Dot {
+name Dot52
+xpos -7260
+ypos 6045
+}
+set Nc52e9400 [stack 0]
+Dot {
+name Dot53
+xpos -6494
+ypos 6045
+}
+set Nc52e9000 [stack 0]
+Dot {
+name Dot54
+xpos -6100
+ypos 6045
+}
+set Nc52e8c00 [stack 0]
+Dot {
+name Dot110
+xpos -5747
+ypos 6045
+}
+set Nc52e8800 [stack 0]
+Dot {
+name Dot55
+xpos -5457
+ypos 6045
+}
+set Nc52e8400 [stack 0]
+Merge2 {
+inputs 2
+operation difference
+name Merge8
+xpos -4456
+ypos 6927
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "DIFFERENCE KEYER"
+old_message {{68 73 70 70 69 82 69 78 67 69 32 75 69 89 69 82}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text16
+xpos -4456
+ypos 7025
+disable {{!showText}}
+}
+Dot {
+name Dot56
+label "DIFFERENCE KEYER"
+xpos -4422
+ypos 7185
+}
+set Nc52b3400 [stack 0]
+Dot {
+name Dot57
+xpos -4422
+ypos 8152
+}
+push $Nc52ea800
+Dot {
+name Dot58
+xpos -2618
+ypos 6222
+}
+set Nc52b2c00 [stack 0]
+Dot {
+name Dot59
+xpos -1925
+ypos 6222
+}
+set Nc52b2800 [stack 0]
+Dot {
+name Dot60
+xpos -1539
+ypos 6222
+}
+set Nc52b2400 [stack 0]
+Dot {
+name Dot61
+xpos -1001
+ypos 6222
+}
+set Nc52b2000 [stack 0]
+Dot {
+name Dot62
+xpos -770
+ypos 6222
+}
+set Nc52b1c00 [stack 0]
+Dot {
+name Dot64
+xpos -4
+ypos 6222
+}
+set Nc52b1800 [stack 0]
+Dot {
+name Dot113
+xpos 385
+ypos 6222
+}
+set Nc52b1400 [stack 0]
+Dot {
+name Dot116
+xpos 738
+ypos 6222
+}
+Saturation {
+saturation 2
+name Saturation8
+xpos 704
+ypos 7032
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "SUPER SATURATED (aces_rtt)"
+old_message {{83 85 80 69 82 32 83 65 84 85 82 65 84 69 68 32 40 97 99 101 115 95 114 116 116 41}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 26
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text14
+xpos 704
+ypos 7203
+disable {{!showText}}
+}
+Dot {
+name Dot117
+label "SUPER SATURATED"
+xpos 738
+ypos 7348
+}
+set Nc52b0400 [stack 0]
+Dot {
+name Dot118
+xpos 738
+ypos 7625
+}
+push $Nc52b1400
+Saturation {
+saturation 0
+name Saturation7
+xpos 351
+ypos 7037
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "NO SATURATION (aces_rtt)"
+old_message {{78 79 32 83 65 84 85 82 65 84 73 79 78 32 40 97 99 101 115 95 114 116 116 41}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 24
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text15
+xpos 351
+ypos 7202
+disable {{!showText}}
+}
+Dot {
+name Dot114
+label "NO SATURATION"
+xpos 385
+ypos 7347
+}
+set Nc525b000 [stack 0]
+Dot {
+name Dot115
+xpos 385
+ypos 7623
+}
+push $Nc52b1800
+Grade {
+white 150
+name Grade5
+xpos -38
+ypos 6808
+}
+set Nc525a800 [stack 0]
+Shuffle {
+red black
+green black
+blue black
+alpha black
+name Shuffle4
+label "\[value in]-->\[value out]"
+xpos 110
+ypos 6917
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "BLACK CHECKER"
+old_message {{66 76 65 67 75 32 67 72 69 67 75 69 82}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 13
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_opacity 1
+shadow_distance 0
+shadow_size 3
+name Text17
+xpos 110
+ypos 7002
+disable {{!showText}}
+}
+push $Nc525a800
+Shuffle {
+alpha black
+name Shuffle7
+label "\[value in]-->\[value out]"
+xpos -38
+ypos 6916
+}
+Clamp {
+inputs 1+1
+name Clamp1
+xpos -38
+ypos 6998
+disable {{!showText}}
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "BLACK CHECKER"
+old_message {{66 76 65 67 75 32 67 72 69 67 75 69 82}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text18
+xpos -38
+ypos 7240
+disable {{!showText}}
+}
+Dot {
+name Dot63
+label "BLACK CHECKER"
+xpos -4
+ypos 7348
+}
+set Nc5259000 [stack 0]
+Dot {
+name Dot65
+xpos -4
+ypos 7624
+}
+push $Nc52b1c00
+Colorspace {
+colorspace_out HSV
+name Colorspace9
+xpos -804
+ypos 6756
+}
+Dot {
+name Dot249
+xpos -770
+ypos 6835
+}
+set Nc5258400 [stack 0]
+Dot {
+name Dot268
+xpos -539
+ypos 6835
+}
+set Nc51d3c00 [stack 0]
+Dot {
+name Dot269
+xpos -315
+ypos 6835
+}
+Shuffle {
+green red
+blue red
+alpha red
+name HUE
+tile_color 0xff0000ff
+label "\[value in]-->\[value out]"
+xpos -349
+ypos 6921
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message HUE
+old_message {{72 85 69}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 3
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text19
+xpos -349
+ypos 7237
+disable {{!showText}}
+}
+Dot {
+name Dot66
+label HUE
+xpos -315
+ypos 7340
+}
+set Nc51d2c00 [stack 0]
+Dot {
+name Dot67
+xpos -315
+ypos 7619
+}
+push $Nc51d3c00
+Shuffle {
+red green
+blue green
+alpha green
+name SATURATION
+tile_color 0xff00ff
+label "\[value in]-->\[value out]"
+xpos -573
+ypos 6924
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "SATURATION LEVEL"
+old_message {{83 65 84 85 82 65 84 73 79 78 32 76 69 86 69 76}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text20
+xpos -573
+ypos 7229
+disable {{!showText}}
+}
+Dot {
+name Dot68
+label SATURATION
+xpos -539
+ypos 7338
+}
+set Nc51d1c00 [stack 0]
+Dot {
+name Dot69
+xpos -539
+ypos 7619
+}
+push $Nc5258400
+Shuffle {
+red blue
+green blue
+alpha blue
+name VALUE
+tile_color 0xffff
+label "\[value in]-->\[value out]"
+xpos -804
+ypos 6926
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "LUMINANCE LEVEL"
+old_message {{76 85 77 73 78 65 78 67 69 32 76 69 86 69 76}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 7
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text21
+xpos -804
+ypos 7232
+disable {{!showText}}
+}
+Dot {
+name Dot70
+label LUMINANCE
+xpos -770
+ypos 7336
+}
+set Nc51d0c00 [stack 0]
+Dot {
+name Dot71
+xpos -770
+ypos 7597
+}
+push $Nc52b2000
+Dot {
+name Dot72
+xpos -1001
+ypos 6932
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "DI COLOR SPACE (logc3_awg)"
+old_message {{68 73 32 67 79 76 79 82 32 83 80 65 67 69 32 40 108 111 103 99 51 95 97 119 103 41}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text22
+xpos -1035
+ypos 7225
+disable {{!showText}}
+}
+Dot {
+name Dot73
+label "DI COLOR SPACE (logc3_awg)"
+xpos -1001
+ypos 7333
+}
+set Nc515f800 [stack 0]
+Dot {
+name Dot74
+xpos -1001
+ypos 7603
+}
+push $Nc52b2400
+Dot {
+name Dot75
+xpos -1539
+ypos 6494
+}
+Dot {
+name Dot192
+xpos -1539
+ypos 6735
+}
+set Nc515ec00 [stack 0]
+push $Nc515ec00
+Dot {
+name Dot255
+xpos -1410
+ypos 6735
+}
+Clamp {
+minimum_enable false
+maximum 1.00456
+name Clamp6
+xpos -1444
+ypos 6798
+}
+Dot {
+name Dot76
+xpos -1410
+ypos 6871
+}
+Merge2 {
+inputs 2
+operation difference
+name Merge23
+xpos -1573
+ypos 6867
+}
+Group {
+name PUMP_IT_UP1
+label "only worry about the red pixels\n(inside of the green squares)\n"
+xpos -1573
+ypos 6922
+}
+Input {
+inputs 0
+name Input1
+xpos -542
+ypos 453
+}
+Dot {
+name Dot18
+xpos -514
+ypos 493
+}
+set Nc515d400 [stack 0]
+push $Nc515d400
+Group {
+name blueDiff
+xpos -548
+ypos 527
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel blue
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc515cc00 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc515c800 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc515c400 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc515c400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc515c800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc515cc00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc515d400
+Group {
+name greenDiff
+xpos -634
+ypos 523
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel green
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc64ddc00 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc64dd800 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc64dd400 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc64dd400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc64dd800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc64ddc00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc515d400
+Group {
+name redDiff
+xpos -732
+ypos 523
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6476c00 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6476800 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6476400 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6476400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6476800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6476c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+Group {
+inputs 4
+name CreateRGBA
+tile_color 0x768400ff
+gl_color 0xffe500ff
+xpos -638
+ypos 571
+}
+Input {
+inputs 0
+name ALPHA
+xpos 513
+ypos 521
+number 3
+}
+Input {
+inputs 0
+name BLUE
+xpos 425
+ypos 521
+number 2
+}
+Input {
+inputs 0
+name GREEN
+xpos 342
+ypos 521
+number 1
+}
+Input {
+inputs 0
+name RED
+xpos 258
+ypos 477
+}
+Dot {
+name Dot1
+xpos 286
+ypos 517
+}
+set Nc6417000 [stack 0]
+push $Nc6417000
+Dot {
+name source
+label source
+xpos 168
+ypos 517
+}
+Remove {
+name Remove1
+xpos 140
+ypos 554
+}
+ShuffleCopy {
+inputs 2
+red red
+alpha alpha2
+name COPYRED
+tile_color 0xff0000ff
+xpos 258
+ypos 560
+}
+ShuffleCopy {
+inputs 2
+green green
+alpha alpha2
+name COPYGREEN
+tile_color 0xff00ff
+xpos 342
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+blue blue
+alpha alpha2
+name COPYBLUE
+tile_color 0xffff
+xpos 425
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+name COPYALPHA
+tile_color 0xff
+xpos 513
+ypos 561
+}
+Output {
+name Output1
+xpos 513
+ypos 661
+}
+end_group
+Saturation {
+saturation 0
+name Saturation1
+xpos -634
+ypos 587
+}
+Group {
+name makeWhite
+xpos -634
+ypos 622
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6414800 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6414400 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc67d3c00 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc67d3c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6414400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6414800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider 1e-06
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+set Nc6466b00 [stack 0]
+Dilate {
+channels {rgba.red rgba.green -rgba.blue none}
+size 10
+name Dilate1
+xpos -467
+ypos 622
+}
+push $Nc6466b00
+Merge2 {
+inputs 2
+operation out
+name Out
+xpos -467
+ypos 672
+}
+push $Nc6466b00
+ShuffleCopy {
+inputs 2
+green red
+name ShuffleCopy1
+xpos -634
+ypos 664
+}
+Grade {
+channels {rgba.red -rgba.green -rgba.blue none}
+multiply 500
+name Grade2
+xpos -634
+ypos 690
+}
+Output {
+name Output1
+xpos -634
+ypos 739
+}
+end_group
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "HIGHLIGHT CLIPPING OVER 1 IN LOGC3_AWG (DI COLOR SPACE) : THIS SHOULD BE BLACK"
+old_message {{72 73 71 72 76 73 71 72 84 32 67 76 73 80 80 73 78 71 32 79 86 69 82 32 49 32 73 78 32 76 79 71 67 51 95 65 87 71 32 40 68 73 32 67 79 76 79 82 32 83 80 65 67 69 41 32 58 32 84 72 73 83 32 83 72 79 85 76 68 32 66 69 32 66 76 65 67 75}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 56
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text23
+xpos -1573
+ypos 7222
+disable {{!showText}}
+}
+Dot {
+name Dot77
+label HIGHLIGHTS
+xpos -1539
+ypos 7336
+}
+set Nc67d0400 [stack 0]
+Dot {
+name Dot78
+xpos -1539
+ypos 7580
+}
+push $Nc52b2800
+Dot {
+name Dot79
+xpos -1925
+ypos 6492
+}
+Dot {
+name Dot191
+xpos -1925
+ypos 6745
+}
+set Nc6757400 [stack 0]
+Dot {
+name Dot80
+xpos -1783
+ypos 6745
+}
+Clamp {
+maximum_enable false
+name Clamp7
+xpos -1817
+ypos 6799
+}
+Dot {
+name Dot265
+xpos -1783
+ypos 6874
+}
+push $Nc6757400
+Merge2 {
+inputs 2
+operation difference
+name Merge24
+xpos -1959
+ypos 6870
+}
+Group {
+name PUMP_IT_UP
+label "only worry about the red pixels\n(inside of the green squares)\n"
+xpos -1959
+ypos 6928
+}
+Input {
+inputs 0
+name Input1
+xpos -645
+ypos 412
+}
+Dot {
+name Dot18
+xpos -617
+ypos 452
+}
+set Nc6755c00 [stack 0]
+push $Nc6755c00
+Group {
+name blueDiff
+xpos -479
+ypos 515
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel blue
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6755400 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6755000 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6754c00 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6754c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6755000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6755400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc6755c00
+Group {
+name greenDiff
+xpos -594
+ypos 514
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel green
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc66fe400 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc66fe000 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc66fdc00 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc66fdc00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc66fe000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc66fe400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc6755c00
+Group {
+name redDiff
+xpos -755
+ypos 507
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6697400 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6697000 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6696c00 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6696c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6697000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6697400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+Group {
+inputs 4
+name CreateRGBA
+tile_color 0x768400ff
+gl_color 0xffe500ff
+xpos -634
+ypos 565
+}
+Input {
+inputs 0
+name ALPHA
+xpos 513
+ypos 521
+number 3
+}
+Input {
+inputs 0
+name BLUE
+xpos 425
+ypos 521
+number 2
+}
+Input {
+inputs 0
+name GREEN
+xpos 342
+ypos 521
+number 1
+}
+Input {
+inputs 0
+name RED
+xpos 258
+ypos 477
+}
+Dot {
+name Dot1
+xpos 286
+ypos 517
+}
+set Nc6647800 [stack 0]
+push $Nc6647800
+Dot {
+name source
+label source
+xpos 168
+ypos 517
+}
+Remove {
+name Remove1
+xpos 140
+ypos 554
+}
+ShuffleCopy {
+inputs 2
+red red
+alpha alpha2
+name COPYRED
+tile_color 0xff0000ff
+xpos 258
+ypos 560
+}
+ShuffleCopy {
+inputs 2
+green green
+alpha alpha2
+name COPYGREEN
+tile_color 0xff00ff
+xpos 342
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+blue blue
+alpha alpha2
+name COPYBLUE
+tile_color 0xffff
+xpos 425
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+name COPYALPHA
+tile_color 0xff
+xpos 513
+ypos 561
+}
+Output {
+name Output1
+xpos 513
+ypos 661
+}
+end_group
+Saturation {
+saturation 0
+name Saturation1
+xpos -634
+ypos 587
+}
+Group {
+name makeWhite
+xpos -634
+ypos 622
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6645000 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6644c00 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6644800 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6644800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6644c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6645000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider 1e-06
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+set Nc6739600 [stack 0]
+Dilate {
+channels {rgba.red rgba.green -rgba.blue none}
+size 10
+name Dilate1
+xpos -467
+ypos 622
+}
+push $Nc6739600
+Merge2 {
+inputs 2
+operation out
+name Out
+xpos -467
+ypos 692
+}
+push $Nc6739600
+ShuffleCopy {
+inputs 2
+green red
+name ShuffleCopy1
+xpos -634
+ypos 722
+}
+Grade {
+channels {rgba.red -rgba.green -rgba.blue none}
+multiply 500
+name Grade2
+xpos -634
+ypos 795
+}
+Output {
+name Output1
+xpos -634
+ypos 894
+}
+end_group
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "NEGATIVE VALUES IN LOGC3_AWG (DI COLOR SPACE) : THIS SHOULD BE BLACK"
+old_message {{78 69 71 65 84 73 86 69 32 86 65 76 85 69 83 32 73 78 32 76 79 71 67 51 95 65 87 71 32 40 68 73 32 67 79 76 79 82 32 83 80 65 67 69 41 32 58 32 84 72 73 83 32 83 72 79 85 76 68 32 66 69 32 66 76 65 67 75}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 68
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text26
+xpos -1959
+ypos 7237
+disable {{!showText}}
+}
+Dot {
+name Dot81
+label "NEGATIVE VALUES"
+xpos -1925
+ypos 7335
+}
+set Nc65f8c00 [stack 0]
+Dot {
+name Dot82
+xpos -1925
+ypos 7576
+}
+CheckerBoard2 {
+inputs 0
+color1 {0.5 0.5 0.5 0}
+color3 {0.5 0.5 0.5 0}
+centerlinecolor {0 0 0 1}
+name CheckerBoard2
+xpos -4810
+ypos 6893
+}
+push $Nc52ea800
+push $Nc52e8400
+Keymix {
+inputs 3
+name Keymix2
+xpos -5159
+ypos 6913
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "GRAIN CHECKER"
+old_message {{71 82 65 73 78 32 67 72 69 67 75 69 82}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 13
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text27
+xpos -5159
+ypos 6961
+disable {{!showText}}
+}
+Dot {
+name Dot119
+label "GRAIN CHECKER"
+xpos -5125
+ypos 7059
+}
+set Nc6587400 [stack 0]
+push $Nc52b2c00
+Dot {
+name Dot83
+xpos -2618
+ypos 6392
+}
+set Nc6587000 [stack 0]
+Dot {
+name Dot84
+xpos -2198
+ypos 6392
+}
+Dot {
+name Dot85
+xpos -2198
+ypos 6632
+}
+set Nc6586800 [stack 0]
+Dot {
+name Dot86
+xpos -2088
+ypos 6632
+}
+Dot {
+name Dot91
+xpos -2088
+ypos 6987
+}
+push $Nc6586800
+Dot {
+name Dot92
+xpos -2198
+ypos 6728
+}
+set Nc6585c00 [stack 0]
+push $Nc6585c00
+Blur {
+size 1.7
+name Blur5
+xpos -2171
+ypos 6764
+}
+Merge2 {
+inputs 2
+operation minus
+name Merge10
+xpos -2232
+ypos 6829
+}
+Grade {
+white 500
+black_clamp false
+name Grade6
+xpos -2232
+ypos 6909
+}
+Saturation {
+saturation 3
+name Saturation5
+xpos -2232
+ypos 6951
+}
+ShuffleCopy {
+inputs 2
+name ShuffleCopy5
+xpos -2232
+ypos 7004
+}
+push $Nc6587000
+Dot {
+name Dot93
+xpos -2462
+ypos 6631
+}
+set Nc6584400 [stack 0]
+Dot {
+name Dot94
+xpos -2332
+ypos 6631
+}
+Dot {
+name Dot95
+xpos -2332
+ypos 6982
+}
+push $Nc6584400
+Dot {
+name Dot96
+xpos -2462
+ypos 6727
+}
+set Nc651f400 [stack 0]
+push $Nc651f400
+Blur {
+size 1.7
+name Blur6
+xpos -2430
+ypos 6767
+}
+Merge2 {
+inputs 2
+operation minus
+name Merge11
+xpos -2496
+ypos 6827
+}
+Grade {
+white 100
+black_clamp false
+name Grade7
+xpos -2496
+ypos 6888
+}
+Saturation {
+saturation 3
+name Saturation6
+xpos -2496
+ypos 6930
+}
+ShuffleCopy {
+inputs 2
+name ShuffleCopy6
+xpos -2496
+ypos 7003
+}
+Merge2 {
+inputs 2
+operation max
+name Max2
+xpos -2366
+ypos 7102
+}
+push $Nc6587000
+Merge2 {
+inputs 2
+operation plus
+name Plus2
+xpos -2652
+ypos 7102
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message GRAIN
+old_message {{71 82 65 73 78}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 5
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text28
+xpos -2652
+ypos 7263
+disable {{!showText}}
+}
+Dot {
+name Dot97
+label GRAIN
+xpos -2618
+ypos 7396
+}
+set Nc651d000 [stack 0]
+Dot {
+name Dot98
+xpos -2618
+ypos 7556
+}
+push $Nc52b3400
+push $Nc52b0400
+push $Nc525b000
+push $Nc5259000
+push $Nc51d2c00
+push $Nc51d1c00
+push $Nc51d0c00
+push $Nc515f800
+push $Nc67d0400
+push $Nc65f8c00
+push $Nc6587400
+push $Nc651d000
+ContactSheet {
+inputs 12
+width {{input.width*2}}
+height {{input.height*2}}
+rows 4
+columns 3
+center true
+roworder TopBottom
+name ContactSheet1
+xpos -2973
+ypos 7437
+}
+Dot {
+name Dot99
+label ALL
+xpos -2939
+ypos 7548
+}
+push $Nc52ea800
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message ORIGINAL
+old_message {{79 82 73 71 73 78 65 76}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 8
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text2
+xpos -3200
+ypos 7290
+disable {{!showText}}
+}
+Dot {
+name Dot100
+label Original
+xpos -3168
+ypos 7552
+}
+Switch {
+inputs 14
+which {{parent.Filter_plate}}
+name SwitchPlate
+xpos -1573
+ypos 8148
+}
+Dot {
+name Dot101
+xpos -1539
+ypos 8481
+}
+Dot {
+name Dot38
+xpos -3394
+ypos 8481
+}
+set Nc68c6c00 [stack 0]
+Dot {
+name Dot37
+xpos -4336
+ypos 8481
+}
+set Nc68c6800 [stack 0]
+Crop {
+box {{parent.TC_Crops.box} {parent.TC_Crops.box} {parent.TC_Crops.box} {parent.TC_Crops.box}}
+reformat true
+name TC_Crops_side_plate
+xpos -4370
+ypos 9373
+}
+Dot {
+name Dot26
+xpos -4336
+ypos 9499
+}
+push $Nc52b3400
+Dot {
+name Dot104
+xpos -5254
+ypos 7262
+}
+set Nc68c5c00 [stack 0]
+Dot {
+name Dot106
+xpos -5254
+ypos 7462
+}
+set Nc68c5800 [stack 0]
+push $Nc52e8800
+Saturation {
+saturation 2
+name Saturation9
+xpos -5781
+ypos 6855
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "SUPER SATURATED (aces_rtt)"
+old_message {{83 85 80 69 82 32 83 65 84 85 82 65 84 69 68 32 40 97 99 101 115 95 114 116 116 41}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 26
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text29
+xpos -5781
+ypos 7026
+disable {{!showText}}
+}
+Dot {
+name Dot111
+label "SUPER SATURATED"
+xpos -5747
+ypos 7171
+}
+set Nc68c4c00 [stack 0]
+Dot {
+name Dot112
+xpos -5747
+ypos 7448
+}
+set Nc68c4800 [stack 0]
+push $Nc52e8c00
+Saturation {
+saturation 0
+name Saturation10
+xpos -6134
+ypos 6860
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "NO SATURATION (aces_rtt)"
+old_message {{78 79 32 83 65 84 85 82 65 84 73 79 78 32 40 97 99 101 115 95 114 116 116 41}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 24
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text30
+xpos -6134
+ypos 7025
+disable {{!showText}}
+}
+Dot {
+name Dot107
+label "NO SATURATION"
+xpos -6100
+ypos 7170
+}
+set Nc686b800 [stack 0]
+Dot {
+name Dot109
+xpos -6100
+ypos 7446
+}
+set Nc686b400 [stack 0]
+push $Nc52e9000
+Grade {
+white 150
+name Grade8
+xpos -6528
+ypos 6739
+}
+set Nc686b000 [stack 0]
+Shuffle {
+red black
+green black
+blue black
+alpha black
+name Shuffle8
+label "\[value in]-->\[value out]"
+xpos -6380
+ypos 6823
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "BLACK CHECKER"
+old_message {{66 76 65 67 75 32 67 72 69 67 75 69 82}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 13
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_opacity 1
+shadow_distance 0
+shadow_size 3
+name Text31
+xpos -6380
+ypos 6933
+disable {{!showText}}
+}
+push $Nc686b000
+Shuffle {
+alpha black
+name Shuffle9
+label "\[value in]-->\[value out]"
+xpos -6528
+ypos 6834
+}
+Clamp {
+inputs 1+1
+name Clamp2
+xpos -6528
+ypos 6929
+disable {{!showText}}
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "BLACK CHECKER"
+old_message {{66 76 65 67 75 32 67 72 69 67 75 69 82}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text32
+xpos -6528
+ypos 7026
+disable {{!showText}}
+}
+Dot {
+name Dot120
+label "BLACK CHECKER"
+xpos -6494
+ypos 7171
+}
+set Nc6869800 [stack 0]
+Dot {
+name Dot121
+xpos -6494
+ypos 7447
+}
+set Nc6869400 [stack 0]
+push $Nc52e9400
+Colorspace {
+colorspace_out HSV
+name Colorspace10
+xpos -7294
+ypos 6524
+}
+Dot {
+name Dot122
+xpos -7260
+ypos 6637
+}
+set Nc6868c00 [stack 0]
+Dot {
+name Dot123
+xpos -7036
+ypos 6637
+}
+set Nc6868800 [stack 0]
+Dot {
+name Dot124
+xpos -6799
+ypos 6637
+}
+Shuffle {
+green red
+blue red
+alpha red
+name HUE1
+tile_color 0xff0000ff
+label "\[value in]-->\[value out]"
+xpos -6833
+ypos 6738
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message HUE
+old_message {{72 85 69}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 3
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text33
+xpos -6833
+ypos 7022
+disable {{!showText}}
+}
+Dot {
+name Dot125
+label HUE
+xpos -6799
+ypos 7159
+}
+set Nc6bd7400 [stack 0]
+Dot {
+name Dot126
+xpos -6799
+ypos 7439
+}
+set Nc6bd7000 [stack 0]
+push $Nc6868800
+Shuffle {
+red green
+blue green
+alpha green
+name SATURATION1
+tile_color 0xff00ff
+label "\[value in]-->\[value out]"
+xpos -7070
+ypos 6733
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "SATURATION LEVEL"
+old_message {{83 65 84 85 82 65 84 73 79 78 32 76 69 86 69 76}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text34
+xpos -7070
+ypos 7026
+disable {{!showText}}
+}
+Dot {
+name Dot127
+label SATURATION
+xpos -7036
+ypos 7159
+}
+set Nc6bd6400 [stack 0]
+Dot {
+name Dot128
+xpos -7036
+ypos 7441
+}
+set Nc6bd6000 [stack 0]
+push $Nc6868c00
+Shuffle {
+red blue
+green blue
+alpha blue
+name LUMINANCE
+tile_color 0xffff
+label "\[value in]-->\[value out]"
+xpos -7294
+ypos 6732
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "LUMINANCE LEVEL"
+old_message {{76 85 77 73 78 65 78 67 69 32 76 69 86 69 76}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 7
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text35
+xpos -7294
+ypos 7024
+disable {{!showText}}
+}
+Dot {
+name Dot129
+label LUMINANCE
+xpos -7260
+ypos 7161
+}
+set Nc6bd5400 [stack 0]
+Dot {
+name Dot130
+xpos -7260
+ypos 7420
+}
+set Nc6bd5000 [stack 0]
+push $Nc52ea800
+push $Nc52e9800
+CopyMetaData {
+inputs 2
+name CopyMetaData2
+xpos -7525
+ypos 6209
+}
+Dot {
+name Dot131
+xpos -7491
+ypos 6364
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "DI COLOR SPACE (logc3_awg)"
+old_message {{68 73 32 67 79 76 79 82 32 83 80 65 67 69 32 40 108 111 103 99 51 95 97 119 103 41}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text36
+xpos -7525
+ypos 7027
+disable {{!showText}}
+}
+Dot {
+name Dot132
+label "DI COLOR SPACE (logc3_awg)"
+xpos -7491
+ypos 7158
+}
+set Nc6b4fc00 [stack 0]
+Dot {
+name Dot133
+xpos -7491
+ypos 7426
+}
+set Nc6b4f800 [stack 0]
+push $Nc52e9c00
+Dot {
+name Dot134
+xpos -8029
+ypos 6317
+}
+Dot {
+name Dot190
+xpos -8029
+ypos 6558
+}
+set Nc6b4f000 [stack 0]
+push $Nc6b4f000
+Dot {
+name Dot135
+xpos -7900
+ypos 6558
+}
+Clamp {
+minimum_enable false
+maximum 1.00456
+name Clamp3
+xpos -7934
+ypos 6621
+}
+Dot {
+name Dot136
+xpos -7900
+ypos 6694
+}
+Merge2 {
+inputs 2
+operation difference
+name Merge12
+xpos -8063
+ypos 6691
+}
+Group {
+name PUMP_IT_UP2
+label "only worry about the red pixels\n(inside of the green squares)\n"
+xpos -8063
+ypos 6752
+}
+Input {
+inputs 0
+name Input1
+xpos -542
+ypos 453
+}
+Dot {
+name Dot18
+xpos -514
+ypos 493
+}
+set Nc6b4d800 [stack 0]
+push $Nc6b4d800
+Group {
+name blueDiff
+xpos -548
+ypos 527
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel blue
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6b4d000 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6b4cc00 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6b4c800 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6b4c800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6b4cc00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6b4d000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc6b4d800
+Group {
+name greenDiff
+xpos -634
+ypos 523
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel green
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6b12000 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6b11c00 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6b11800 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6b11800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6b11c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6b12000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc6b4d800
+Group {
+name redDiff
+xpos -732
+ypos 523
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6aa7000 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6aa6c00 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6aa6800 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6aa6800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6aa6c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6aa7000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+Group {
+inputs 4
+name CreateRGBA
+tile_color 0x768400ff
+gl_color 0xffe500ff
+xpos -638
+ypos 571
+}
+Input {
+inputs 0
+name ALPHA
+xpos 513
+ypos 521
+number 3
+}
+Input {
+inputs 0
+name BLUE
+xpos 425
+ypos 521
+number 2
+}
+Input {
+inputs 0
+name GREEN
+xpos 342
+ypos 521
+number 1
+}
+Input {
+inputs 0
+name RED
+xpos 258
+ypos 477
+}
+Dot {
+name Dot1
+xpos 286
+ypos 517
+}
+set Nc6a3f400 [stack 0]
+push $Nc6a3f400
+Dot {
+name source
+label source
+xpos 168
+ypos 517
+}
+Remove {
+name Remove1
+xpos 140
+ypos 554
+}
+ShuffleCopy {
+inputs 2
+red red
+alpha alpha2
+name COPYRED
+tile_color 0xff0000ff
+xpos 258
+ypos 560
+}
+ShuffleCopy {
+inputs 2
+green green
+alpha alpha2
+name COPYGREEN
+tile_color 0xff00ff
+xpos 342
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+blue blue
+alpha alpha2
+name COPYBLUE
+tile_color 0xffff
+xpos 425
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+name COPYALPHA
+tile_color 0xff
+xpos 513
+ypos 561
+}
+Output {
+name Output1
+xpos 513
+ypos 661
+}
+end_group
+Saturation {
+saturation 0
+name Saturation1
+xpos -634
+ypos 587
+}
+Group {
+name makeWhite
+xpos -634
+ypos 622
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6a3cc00 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6a3c800 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6a3c400 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6a3c400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6a3c800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6a3cc00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider 1e-06
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+set Nc6aa2b00 [stack 0]
+Dilate {
+channels {rgba.red rgba.green -rgba.blue none}
+size 10
+name Dilate1
+xpos -467
+ypos 622
+}
+push $Nc6aa2b00
+Merge2 {
+inputs 2
+operation out
+name Out
+xpos -467
+ypos 672
+}
+push $Nc6aa2b00
+ShuffleCopy {
+inputs 2
+green red
+name ShuffleCopy1
+xpos -634
+ypos 664
+}
+Grade {
+channels {rgba.red -rgba.green -rgba.blue none}
+multiply 500
+name Grade2
+xpos -634
+ypos 690
+}
+Output {
+name Output1
+xpos -634
+ypos 739
+}
+end_group
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "HIGHLIGHT CLIPPING OVER 1 IN LOGC3_AWG (DI COLOR SPACE) : THIS SHOULD BE BLACK"
+old_message {{72 73 71 72 76 73 71 72 84 32 67 76 73 80 80 73 78 71 32 79 86 69 82 32 49 32 73 78 32 76 79 71 67 51 95 65 87 71 32 40 68 73 32 67 79 76 79 82 32 83 80 65 67 69 41 32 58 32 84 72 73 83 32 83 72 79 85 76 68 32 66 69 32 66 76 65 67 75}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 56
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+center {1079 450}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text37
+xpos -8063
+ypos 7085
+disable {{!showText}}
+}
+Dot {
+name Dot137
+label HIGHLIGHTS
+xpos -8029
+ypos 7159
+}
+set Nc69f4800 [stack 0]
+Dot {
+name Dot138
+xpos -8029
+ypos 7403
+}
+set Nc69f4400 [stack 0]
+push $Nc52ea000
+Dot {
+name Dot139
+xpos -8415
+ypos 6315
+}
+Dot {
+name Dot189
+xpos -8415
+ypos 6568
+}
+set Nc6987800 [stack 0]
+Dot {
+name Dot140
+xpos -8273
+ypos 6568
+}
+Clamp {
+maximum_enable false
+name Clamp5
+xpos -8307
+ypos 6622
+}
+Dot {
+name Dot141
+xpos -8273
+ypos 6697
+}
+push $Nc6987800
+Merge2 {
+inputs 2
+operation difference
+name Merge13
+xpos -8449
+ypos 6694
+}
+Group {
+name PUMP_IT_UP4
+label "only worry about the red pixels\n(inside of the green squares)\n"
+xpos -8449
+ypos 6751
+}
+Input {
+inputs 0
+name Input1
+xpos -645
+ypos 412
+}
+Dot {
+name Dot18
+xpos -617
+ypos 452
+}
+set Nc6986000 [stack 0]
+push $Nc6986000
+Group {
+name blueDiff
+xpos -479
+ypos 515
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel blue
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6985800 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6985400 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6985000 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6985000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6985400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6985800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc6986000
+Group {
+name greenDiff
+xpos -594
+ypos 514
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+channel green
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6936800 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6936400 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6936000 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6936000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6936400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6936800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+push $Nc6986000
+Group {
+name redDiff
+xpos -755
+ypos 507
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6cd7800 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6cd7400 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6cd7000 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6cd7000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6cd7400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6cd7800
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+Group {
+inputs 4
+name CreateRGBA
+tile_color 0x768400ff
+gl_color 0xffe500ff
+xpos -634
+ypos 565
+}
+Input {
+inputs 0
+name ALPHA
+xpos 513
+ypos 521
+number 3
+}
+Input {
+inputs 0
+name BLUE
+xpos 425
+ypos 521
+number 2
+}
+Input {
+inputs 0
+name GREEN
+xpos 342
+ypos 521
+number 1
+}
+Input {
+inputs 0
+name RED
+xpos 258
+ypos 477
+}
+Dot {
+name Dot1
+xpos 286
+ypos 517
+}
+set Nc6c87c00 [stack 0]
+push $Nc6c87c00
+Dot {
+name source
+label source
+xpos 168
+ypos 517
+}
+Remove {
+name Remove1
+xpos 140
+ypos 554
+}
+ShuffleCopy {
+inputs 2
+red red
+alpha alpha2
+name COPYRED
+tile_color 0xff0000ff
+xpos 258
+ypos 560
+}
+ShuffleCopy {
+inputs 2
+green green
+alpha alpha2
+name COPYGREEN
+tile_color 0xff00ff
+xpos 342
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+blue blue
+alpha alpha2
+name COPYBLUE
+tile_color 0xffff
+xpos 425
+ypos 561
+}
+ShuffleCopy {
+inputs 2
+name COPYALPHA
+tile_color 0xff
+xpos 513
+ypos 561
+}
+Output {
+name Output1
+xpos 513
+ypos 661
+}
+end_group
+Saturation {
+saturation 0
+name Saturation1
+xpos -634
+ypos 587
+}
+Group {
+name makeWhite
+xpos -634
+ypos 622
+addUserKnob {20 makeWhite}
+addUserKnob {41 slider l threshold T makeWhiteRED.slider}
+addUserKnob {4 channel M {red green blue alpha ""}}
+}
+Input {
+inputs 0
+name Input1
+xpos 510
+ypos -617
+}
+Dot {
+name Dot41
+xpos 538
+ypos -540
+}
+set Nc6c85400 [stack 0]
+Dot {
+name Dot42
+xpos 648
+ypos -540
+}
+set Nc6c85000 [stack 0]
+Dot {
+name Dot43
+xpos 758
+ypos -540
+}
+set Nc6c84c00 [stack 0]
+Dot {
+name Dot44
+xpos 868
+ypos -540
+}
+Expression {
+temp_name0 makeWhite
+temp_expr0 "a>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteALPHA
+xpos 840
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6c84c00
+Expression {
+temp_name0 makeWhite
+temp_expr0 "b>\[value slider]?1:0"
+expr0 0
+expr1 0
+expr2 makeWhite
+channel3 alpha
+expr3 makeWhite
+name makeWhiteBLUE
+xpos 730
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6c85000
+Expression {
+temp_name0 makeWhite
+temp_expr0 "g>\[value slider]?1:0"
+expr0 0
+expr1 makeWhite
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteGREEN
+xpos 620
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider {{makeWhiteRED.slider}}
+}
+push $Nc6c85400
+Expression {
+temp_name0 makeWhite
+temp_expr0 "r>\[value slider]?1:0"
+expr0 makeWhite
+expr1 0
+expr2 0
+channel3 alpha
+expr3 makeWhite
+name makeWhiteRED
+xpos 510
+ypos -418
+addUserKnob {20 User}
+addUserKnob {7 slider R 0 0.2}
+slider 1e-06
+}
+Switch {
+inputs 4
+which {{channel}}
+name Switch1
+xpos 620
+ypos -291
+}
+Output {
+name Output1
+xpos 620
+ypos -191
+}
+end_group
+set Nc6965600 [stack 0]
+Dilate {
+channels {rgba.red rgba.green -rgba.blue none}
+size 10
+name Dilate1
+xpos -467
+ypos 622
+}
+push $Nc6965600
+Merge2 {
+inputs 2
+operation out
+name Out
+xpos -467
+ypos 692
+}
+push $Nc6965600
+ShuffleCopy {
+inputs 2
+green red
+name ShuffleCopy1
+xpos -634
+ypos 722
+}
+Grade {
+channels {rgba.red -rgba.green -rgba.blue none}
+multiply 500
+name Grade2
+xpos -634
+ypos 795
+}
+Output {
+name Output1
+xpos -634
+ypos 894
+}
+end_group
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "NEGATIVE VALUES IN LOGC3_AWG (DI COLOR SPACE) : THIS SHOULD BE BLACK"
+old_message {{78 69 71 65 84 73 86 69 32 86 65 76 85 69 83 32 73 78 32 76 79 71 67 51 95 65 87 71 32 40 68 73 32 67 79 76 79 82 32 83 80 65 67 69 41 32 58 32 84 72 73 83 32 83 72 79 85 76 68 32 66 69 32 66 76 65 67 75}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 68
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text38
+selected true
+xpos -8449
+ypos 7085
+disable {{!showText}}
+}
+Dot {
+name Dot142
+label "NEGATIVE VALUES"
+xpos -8415
+ypos 7158
+}
+set Nc6c39000 [stack 0]
+Dot {
+name Dot143
+xpos -8415
+ypos 7399
+}
+set Nc6c38c00 [stack 0]
+push $Nc6587400
+push $Nc52ea400
+Dot {
+name Dot144
+xpos -9108
+ypos 6215
+}
+set Nc6c38800 [stack 0]
+Dot {
+name Dot145
+xpos -8688
+ypos 6215
+}
+Dot {
+name Dot146
+xpos -8688
+ypos 6455
+}
+set Nc6fbfc00 [stack 0]
+Dot {
+name Dot147
+xpos -8578
+ypos 6455
+}
+Dot {
+name Dot148
+xpos -8578
+ypos 6810
+}
+push $Nc6fbfc00
+Dot {
+name Dot149
+xpos -8688
+ypos 6551
+}
+set Nc6fbf000 [stack 0]
+push $Nc6fbf000
+Blur {
+size 1.7
+name Blur7
+xpos -8661
+ypos 6587
+}
+Merge2 {
+inputs 2
+operation minus
+name Merge14
+xpos -8722
+ypos 6652
+}
+Grade {
+white 500
+black_clamp false
+name Grade9
+xpos -8722
+ypos 6732
+}
+Saturation {
+saturation 3
+name Saturation11
+xpos -8722
+ypos 6774
+}
+ShuffleCopy {
+inputs 2
+name ShuffleCopy7
+xpos -8722
+ypos 6827
+}
+push $Nc6c38800
+Dot {
+name Dot150
+xpos -8952
+ypos 6454
+}
+set Nc6fbd800 [stack 0]
+Dot {
+name Dot151
+xpos -8819
+ypos 6454
+}
+Dot {
+name Dot152
+xpos -8819
+ypos 6805
+}
+push $Nc6fbd800
+Dot {
+name Dot153
+xpos -8952
+ypos 6550
+}
+set Nc6fbcc00 [stack 0]
+push $Nc6fbcc00
+Blur {
+size 1.7
+name Blur8
+xpos -8920
+ypos 6590
+}
+Merge2 {
+inputs 2
+operation minus
+name Merge15
+xpos -8986
+ypos 6650
+}
+Grade {
+white 100
+black_clamp false
+name Grade10
+xpos -8986
+ypos 6711
+}
+Saturation {
+saturation 3
+name Saturation12
+xpos -8986
+ypos 6753
+}
+ShuffleCopy {
+inputs 2
+name ShuffleCopy8
+xpos -8986
+ypos 6826
+}
+Merge2 {
+inputs 2
+operation max
+name Max3
+xpos -8856
+ypos 6925
+}
+push $Nc6c38800
+Merge2 {
+inputs 2
+operation plus
+name Plus4
+xpos -9142
+ypos 6925
+}
+Text2 {
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message GRAIN
+old_message {{71 82 65 73 78}
+  }
+box {0 0 {input.width} {input.height}}
+yjustify bottom
+transforms {{0 2}
+  }
+cursor_position 5
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.36
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 900}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+  }
+color {1 1 0 1}
+enable_shadows true
+shadow_distance 0
+shadow_size 3
+name Text39
+xpos -9142
+ypos 7074
+disable {{!showText}}
+}
+Dot {
+name Dot154
+label GRAIN
+xpos -9108
+ypos 7219
+}
+set Nc6f6e400 [stack 0]
+Dot {
+name Dot155
+xpos -9108
+ypos 7379
+}
+set Nc6f6e000 [stack 0]
+push $Nc68c5c00
+push $Nc68c4c00
+push $Nc686b800
+push $Nc6869800
+push $Nc6bd7400
+push $Nc6bd6400
+push $Nc6bd5400
+push $Nc6b4fc00
+push $Nc69f4800
+push $Nc6c39000
+push $Nc6587400
+push $Nc6f6e400
+ContactSheet {
+inputs 12
+width {{input.width*2}}
+height {{input.height*2}}
+rows 4
+columns 3
+center true
+roworder TopBottom
+name ContactSheet4
+xpos -9463
+ypos 7259
+}
+Dot {
+name Dot156
+label ALL
+xpos -9429
+ypos 7371
+}
+set Nc6f6d800 [stack 0]
+push $Nc4d01400
+Switch {
+inputs 14
+which {{parent.Filter_comp}}
+name SwitchComp
+xpos -8063
+ypos 7971
+}
+Dot {
+name Dot157
+xpos -8029
+ypos 8479
+}
+Dot {
+name Dot36
+xpos -4616
+ypos 8479
+}
+set Nc6f6cc00 [stack 0]
+Dot {
+name Dot3
+xpos -4616
+ypos 9115
+}
+Crop {
+box {{parent.TC_Crops.box} {parent.TC_Crops.box} {parent.TC_Crops.box} {parent.TC_Crops.box}}
+reformat true
+name TC_Crops_comp
+xpos -4650
+ypos 9373
+}
+Transform {
+translate {{"parent.TC_Crops_side_plate.box.r - parent.TC_Crops_side_plate.box.x"} 0}
+center {480 270}
+shutteroffset centred
+name Transform1
+xpos -4650
+ypos 9435
+}
+Merge2 {
+inputs 2
+name Merge6
+xpos -4650
+ypos 9496
+}
+set Nc6f07800 [stack 0]
+push $Nc6f07800
+Reformat {
+type "to box"
+box_width {{bbox.w}}
+box_height {{bbox.h}}
+box_fixed true
+name Reformat1
+xpos -4721
+ypos 9540
+}
+Shuffle {
+red black
+green black
+blue black
+alpha black
+name Shuffle3
+label "\[value in]-->\[value out]"
+xpos -4721
+ypos 9581
+}
+Merge2 {
+inputs 2
+name Merge7
+xpos -4650
+ypos 9645
+}
+set Nc6f06800 [stack 0]
+push $Nc4d00400
+Dot {
+name Dot35
+xpos -4855
+ypos 8882
+}
+Expression {
+expr0 "(isinf(r) || isnan(r)) ? 1 : 0"
+expr1 "(isinf(g) || isnan(g)) ? 1 : 0"
+expr2 "(isinf(b) || isnan(b)) ? 1 : 0"
+channel3 {none none none -rgba.red}
+name Expression4
+xpos -4889
+ypos 9000
+}
+CurveTool {
+operation "Max Luma Pixel"
+ROI {0 0 {input.width} {input.height}}
+autocropdata {0 0 {input.width} {input.height}}
+maxlumapixdata {{curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}}
+maxlumapixvalue {{curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}}
+minlumapixdata {{curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}}
+minlumapixvalue {{curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {curve x1001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}}
+name CurveTool_NAN
+xpos -4889
+ypos 9052
+}
+CheckerBoard2 {
+inputs 0
+boxsize {{parent.Size_of_checkerBoard}}
+color0 {0 0 0 0}
+color1 1
+color2 {0 0 0 0}
+color3 1
+centerlinecolor {1 1 0 0}
+centerlinewidth 0
+name CheckerBoard1
+xpos -4017
+ypos 8606
+}
+push $Nc68c6c00
+push $Nc6f6cc00
+Keymix {
+inputs 3
+name Keymix1
+xpos -4017
+ypos 8931
+}
+push $Nc68c6800
+push $Nc6f6cc00
+Switch {
+inputs 2
+which {{parent.validator}}
+name SwitchComp_vs_Plate
+xpos -4504
+ypos 8811
+}
+Switch {
+inputs 2
+which {{parent.compare_checkerBoard}}
+name Switch7
+xpos -4504
+ypos 8937
+}
+Switch {
+inputs 2
+which {{parent.NaN_Vision}}
+name Switch3
+xpos -4504
+ypos 9052
+}
+Crop {
+box {0 0 {int(input.width)} {input.height}}
+reformat true
+crop false
+name TC_Crops
+xpos -4504
+ypos 9371
+}
+set Nc6f04400 [stack 0]
+Switch {
+inputs 2
+which {{parent.side_plate}}
+name Switch6
+xpos -4504
+ypos 9728
+}
+Dot {
+name Dot28
+xpos -4470
+ypos 10152
+}
+set Nc6ea7800 [stack 0]
+Dot {
+name Dot1
+xpos -4130
+ypos 10152
+}
+set Nc6ea7400 [stack 0]
+Dot {
+name Dot6
+xpos -4001
+ypos 10152
+}
+Reformat {
+type "to box"
+format "2578 1080 0 0 2578 1080 1 sunlit_anamorphic_crop"
+box_width 2156
+box_height 2136
+box_fixed true
+filter impulse
+name DEST_FORMAT
+xpos -4035
+ypos 10199
+}
+Dot {
+name Dot8
+xpos -4001
+ypos 10250
+}
+push $Nc6ea7400
+Reformat {
+box_width 2156
+box_height 1136
+box_fixed true
+name Reformat5
+xpos -4164
+ypos 10197
+}
+Switch {
+inputs 2
+which {{parent.Anamorphic}}
+name Switch15
+xpos -4164
+ypos 10247
+}
+Crop {
+box {0 0 {width} {height}}
+name Crop3
+xpos -4164
+ypos 10300
+}
+AdjBBox {
+numpixels {{borders}}
+name AdjBBox1
+xpos -4164
+ypos 10347
+}
+Crop {
+box {{"bbox.x + 1"} {"bbox.y + 1"} {"bbox.r - 1"} {"bbox.t - 1"}}
+reformat true
+name Crop4
+xpos -4164
+ypos 10394
+}
+Reformat {
+type scale
+scale {2 2}
+filter impulse
+name Reformat131
+xpos -4164
+ypos 10441
+}
+Tile {
+rows 2
+columns 2
+filter impulse
+name Tile3
+xpos -4164
+ypos 10495
+}
+Reformat {
+type scale
+scale {0.5 0.5}
+resize none
+filter impulse
+name Reformat132
+xpos -4164
+ypos 10535
+}
+Dot {
+name Dot29
+xpos -4130
+ypos 10582
+}
+set Nc6e67000 [stack 0]
+push $Nc6ea7800
+Switch {
+inputs 2
+which {{bordersChecker}}
+name Switch10
+xpos -4504
+ypos 10578
+}
+Dot {
+name Dot9
+xpos -4470
+ypos 11388
+}
+set Nc6e66800 [stack 0]
+Dot {
+name Dot12
+xpos -4341
+ypos 11426
+}
+Merge2 {
+inputs 2
+mix 0.2
+name Merge1
+xpos -4375
+ypos 11648
+}
+Merge2 {
+inputs 2
+mix 0.2
+name Merge2
+xpos -4375
+ypos 11715
+}
+add_layer {qc_DI_mask qc_DI_mask.red qc_DI_mask.green qc_DI_mask.blue}
+AddChannels {
+channels qc_DI_mask
+name AddChannels15
+xpos -4375
+ypos 11780
+}
+Shuffle {
+out qc_DI_mask
+name Shuffle27
+label "\[value in]-->\[value out]"
+xpos -4375
+ypos 11856
+}
+Remove {
+operation keep
+channels qc_DI_mask
+name Remove25
+xpos -4375
+ypos 11908
+}
+Dot {
+name Dot169
+xpos -4341
+ypos 11960
+}
+push $Nc6e67000
+add_layer {qc_borders_checker qc_borders_checker.red qc_borders_checker.green qc_borders_checker.blue}
+AddChannels {
+channels qc_borders_checker
+name AddChannels14
+xpos -4164
+ypos 10645
+}
+Shuffle {
+out qc_borders_checker
+name Shuffle26
+label "\[value in]-->\[value out]"
+xpos -4164
+ypos 10697
+}
+Remove {
+operation keep
+channels qc_borders_checker
+name Remove24
+xpos -4164
+ypos 10749
+}
+Dot {
+name Dot168
+xpos -4130
+ypos 10832
+}
+push $Nc68c5800
+add_layer {qc_difference qc_difference.red qc_difference.green qc_difference.blue}
+AddChannels {
+channels qc_difference
+name AddChannels12
+xpos -5288
+ypos 8176
+}
+Shuffle {
+out qc_difference
+name Shuffle25
+label "\[value in]-->\[value out]"
+xpos -5288
+ypos 8228
+}
+Remove {
+operation keep
+channels qc_difference
+name Remove23
+xpos -5288
+ypos 8280
+}
+Dot {
+name Dot167
+xpos -5254
+ypos 9787
+}
+push $Nc6587400
+Dot {
+name Dot165
+xpos -5470
+ypos 7357
+}
+add_layer {qc_grain_checker qc_grain_checker.red qc_grain_checker.green qc_grain_checker.blue}
+AddChannels {
+channels qc_grain_checker
+name AddChannels13
+xpos -5504
+ypos 8190
+}
+Shuffle {
+out qc_grain_checker
+name Shuffle24
+label "\[value in]-->\[value out]"
+xpos -5504
+ypos 8242
+}
+Remove {
+operation keep
+channels qc_grain_checker
+name Remove22
+xpos -5504
+ypos 8294
+}
+Dot {
+name Dot166
+xpos -5470
+ypos 9723
+}
+push $Nc68c4800
+add_layer {qc_super_saturated qc_super_saturated.red qc_super_saturated.green qc_super_saturated.blue}
+AddChannels {
+channels qc_super_saturated
+name AddChannels11
+xpos -5781
+ypos 8182
+}
+Shuffle {
+out qc_super_saturated
+name Shuffle23
+label "\[value in]-->\[value out]"
+xpos -5781
+ypos 8234
+}
+Remove {
+operation keep
+channels qc_super_saturated
+name Remove21
+xpos -5781
+ypos 8286
+}
+Dot {
+name Dot164
+xpos -5747
+ypos 9659
+}
+push $Nc686b400
+add_layer {qc_no_saturation qc_no_saturation.red qc_no_saturation.green qc_no_saturation.blue}
+AddChannels {
+channels qc_no_saturation
+name AddChannels10
+xpos -6134
+ypos 8175
+}
+Shuffle {
+out qc_no_saturation
+name Shuffle22
+label "\[value in]-->\[value out]"
+xpos -6134
+ypos 8227
+}
+Remove {
+operation keep
+channels qc_no_saturation
+name Remove20
+xpos -6134
+ypos 8279
+}
+Dot {
+name Dot163
+xpos -6100
+ypos 9595
+}
+push $Nc6869400
+add_layer {qc_black_level qc_black_level.red qc_black_level.green qc_black_level.blue}
+AddChannels {
+channels qc_black_level
+name AddChannels9
+xpos -6528
+ypos 8169
+}
+Shuffle {
+out qc_black_level
+name Shuffle21
+label "\[value in]-->\[value out]"
+xpos -6528
+ypos 8221
+}
+Remove {
+operation keep
+channels qc_black_level
+name Remove19
+xpos -6528
+ypos 8273
+}
+Dot {
+name Dot162
+xpos -6494
+ypos 9531
+}
+push $Nc6bd7000
+add_layer {qc_hue qc_hue.red qc_hue.green qc_hue.blue}
+AddChannels {
+channels qc_hue
+name AddChannels8
+xpos -6833
+ypos 8177
+}
+Shuffle {
+out qc_hue
+name Shuffle20
+label "\[value in]-->\[value out]"
+xpos -6833
+ypos 8229
+}
+Remove {
+operation keep
+channels qc_hue
+name Remove18
+xpos -6833
+ypos 8281
+}
+Dot {
+name Dot161
+xpos -6799
+ypos 9467
+}
+push $Nc6bd6000
+add_layer {qc_saturation qc_saturation.red qc_saturation.green qc_saturation.blue}
+AddChannels {
+channels qc_saturation
+name AddChannels7
+xpos -7070
+ypos 8175
+}
+Shuffle {
+out qc_saturation
+name Shuffle19
+label "\[value in]-->\[value out]"
+xpos -7070
+ypos 8227
+}
+Remove {
+operation keep
+channels qc_saturation
+name Remove17
+xpos -7070
+ypos 8279
+}
+Dot {
+name Dot160
+xpos -7036
+ypos 9403
+}
+push $Nc6bd5000
+add_layer {qc_luminance qc_luminance.red qc_luminance.green qc_luminance.blue}
+AddChannels {
+channels qc_luminance
+name AddChannels6
+xpos -7294
+ypos 8167
+}
+Shuffle {
+out qc_luminance
+name Shuffle18
+label "\[value in]-->\[value out]"
+xpos -7294
+ypos 8219
+}
+Remove {
+operation keep
+channels qc_luminance
+name Remove16
+xpos -7294
+ypos 8271
+}
+Dot {
+name Dot159
+xpos -7260
+ypos 9339
+}
+push $Nc6b4f800
+add_layer {qc_DI_colorspace qc_DI_colorspace.red qc_DI_colorspace.green qc_DI_colorspace.blue}
+AddChannels {
+channels qc_DI_colorspace
+name AddChannels5
+xpos -7525
+ypos 8182
+}
+Shuffle {
+out qc_DI_colorspace
+name Shuffle17
+label "\[value in]-->\[value out]"
+xpos -7525
+ypos 8234
+}
+Remove {
+operation keep
+channels qc_DI_colorspace
+name Remove15
+xpos -7525
+ypos 8286
+}
+Dot {
+name Dot158
+xpos -7491
+ypos 9275
+}
+push $Nc69f4400
+Dot {
+name Dot103
+xpos -8183
+ypos 7462
+}
+add_layer {qc_highvalues qc_highvalues.red qc_highvalues.green qc_highvalues.blue}
+AddChannels {
+channels qc_highvalues
+name AddChannels4
+xpos -8217
+ypos 8162
+}
+Shuffle {
+out qc_highvalues
+name Shuffle16
+label "\[value in]-->\[value out]"
+xpos -8217
+ypos 8214
+}
+Remove {
+operation keep
+channels qc_highvalues
+name Remove14
+xpos -8217
+ypos 8266
+}
+Dot {
+name Dot102
+xpos -8183
+ypos 9211
+}
+push $Nc6c38c00
+add_layer {qc_negvalues qc_negvalues.red qc_negvalues.green qc_negvalues.blue}
+AddChannels {
+channels qc_negvalues
+name AddChannels3
+xpos -8449
+ypos 8177
+}
+Shuffle {
+out qc_negvalues
+name Shuffle15
+label "\[value in]-->\[value out]"
+xpos -8449
+ypos 8229
+}
+Remove {
+operation keep
+channels qc_negvalues
+name Remove13
+xpos -8449
+ypos 8281
+}
+Dot {
+name Dot90
+xpos -8415
+ypos 9147
+}
+push $Nc6f6e000
+add_layer {qc_grain qc_grain.red qc_grain.green qc_grain.blue}
+AddChannels {
+channels qc_grain
+name AddChannels2
+xpos -9142
+ypos 8136
+}
+Shuffle {
+out qc_grain
+name Shuffle14
+label "\[value in]-->\[value out]"
+xpos -9142
+ypos 8188
+}
+Remove {
+operation keep
+channels qc_grain
+name Remove12
+xpos -9142
+ypos 8240
+}
+Dot {
+name Dot89
+xpos -9108
+ypos 9083
+}
+push $Nc6f6d800
+Reformat {
+name Reformat6
+xpos -9463
+ypos 7751
+}
+add_layer {qc_all qc_all.red qc_all.green qc_all.blue}
+AddChannels {
+channels qc_all
+name AddChannels1
+xpos -9463
+ypos 8136
+}
+Shuffle {
+out qc_all
+name Shuffle13
+label "\[value in]-->\[value out]"
+xpos -9463
+ypos 8188
+}
+Remove {
+operation keep
+channels qc_all
+name Remove11
+xpos -9463
+ypos 8240
+}
+Copy {
+inputs 2
+channels all
+name Copy1
+xpos -9463
+ypos 9068
+}
+Copy {
+inputs 2
+channels all
+name Copy2
+xpos -9463
+ypos 9132
+}
+Copy {
+inputs 2
+channels all
+name Copy3
+xpos -9463
+ypos 9196
+}
+Copy {
+inputs 2
+channels all
+name Copy4
+xpos -9463
+ypos 9260
+}
+Copy {
+inputs 2
+channels all
+name Copy5
+xpos -9463
+ypos 9324
+}
+Copy {
+inputs 2
+channels all
+name Copy6
+xpos -9463
+ypos 9388
+}
+Copy {
+inputs 2
+channels all
+name Copy7
+xpos -9463
+ypos 9452
+}
+Copy {
+inputs 2
+channels all
+name Copy8
+xpos -9463
+ypos 9516
+}
+Copy {
+inputs 2
+channels all
+name Copy9
+xpos -9463
+ypos 9580
+}
+Copy {
+inputs 2
+channels all
+name Copy10
+xpos -9463
+ypos 9644
+}
+Copy {
+inputs 2
+channels all
+name Copy11
+xpos -9463
+ypos 9708
+}
+Copy {
+inputs 2
+channels all
+name Copy12
+xpos -9463
+ypos 9772
+}
+Dot {
+name Dot171
+xpos -9429
+ypos 10001
+}
+Dot {
+name Dot172
+xpos -7563
+ypos 10001
+}
+Copy {
+inputs 2
+channels all
+name Copy13
+xpos -7597
+ypos 10817
+}
+Copy {
+inputs 2
+channels all
+name Copy14
+xpos -7597
+ypos 11945
+}
+Copy {
+inputs 2
+channels all
+name Copy15
+xpos -7597
+ypos 13900
+}
+Copy {
+inputs 2
+channels all
+name Copy16
+xpos -7597
+ypos 13964
+}
+Copy {
+inputs 2
+channels all
+name Copy17
+xpos -7597
+ypos 14028
+}
+Copy {
+inputs 2
+channels all
+name Copy18
+xpos -7597
+ypos 14092
+}
+Copy {
+inputs 2
+channels all
+name Copy19
+xpos -7597
+ypos 14156
+}
+Copy {
+inputs 2
+channels all
+name Copy20
+xpos -7597
+ypos 14220
+}
+Copy {
+inputs 2
+channels all
+name Copy21
+xpos -7597
+ypos 14284
+}
+Copy {
+inputs 2
+channels all
+name Copy22
+xpos -7597
+ypos 14348
+}
+Copy {
+inputs 2
+channels all
+name Copy23
+xpos -7597
+ypos 14412
+}
+Copy {
+inputs 2
+channels all
+name Copy24
+xpos -7597
+ypos 14476
+}
+Copy {
+inputs 2
+channels all
+name Copy25
+xpos -7597
+ypos 14540
+}
+Copy {
+inputs 2
+channels all
+name Copy26
+xpos -7597
+ypos 14604
+}
+Copy {
+inputs 2
+channels all
+name Copy27
+xpos -7597
+ypos 14668
+}
+Dot {
+name Dot185
+xpos -7563
+ypos 14913
+}
+push $Nc4cb7000
+add_layer {spidermanExtra spidermanExtra.red spidermanExtra.green spidermanExtra.blue}
+Shuffle {
+in spidermanExtra
+name Shuffle11
+label "\[value in]-->\[value out]"
+xpos -5260
+ypos 12477
+}
+Remove {
+operation keep
+channels rgb
+name Remove6
+xpos -5260
+ypos 12529
+}
+Expression {
+channel3 alpha
+expr3 rgba.red+rgba.green+rgba.blue
+name Expression7
+xpos -5260
+ypos 12569
+}
+push $Nc4cb6400
+push $Nc5124800
+push $Nc50e0c00
+push $Nc5085000
+push $Nc5039400
+push $Nc53d9400
+Switch {
+inputs 7
+which {{SinglesSelection}}
+name Switch1
+xpos -5714
+ypos 12671
+}
+Dot {
+name Dot19
+xpos -5680
+ypos 12740
+}
+set Nc73f3800 [stack 0]
+push $Nc4cb7000
+Dot {
+name Dot24
+xpos -5009
+ypos 12256
+}
+Remove {
+operation keep
+channels rgb
+name Remove9
+xpos -5043
+ypos 12573
+}
+Merge2 {
+inputs 2
+name Plus
+xpos -5043
+ypos 12737
+}
+Dot {
+name Dot21
+xpos -5009
+ypos 12855
+}
+push $Nc73f3800
+push $Nc4cb7800
+LayerContactSheet {
+width {{parent.width}}
+height {{parent.height}}
+center true
+showLayerNames true
+name LayerContactSheet2
+xpos -6323
+ypos 12575
+}
+Dot {
+name Dot4
+xpos -6289
+ypos 12946
+}
+Switch {
+inputs 3
+which {{CheckMode}}
+name Switch2
+xpos -5043
+ypos 12943
+}
+Dot {
+name Dot22
+xpos -5009
+ypos 13021
+}
+push $Nc5337400
+push $Nc5334800
+Switch {
+inputs 2
+which {{DCP_Mask}}
+name Switch_DCP_Mask
+xpos -4287
+ypos 11337
+}
+Invert {
+name Invert1
+xpos -4287
+ypos 11409
+}
+Multiply {
+value {1 0.3 1 1}
+name Multiply1
+xpos -4287
+ypos 11494
+}
+push $Nc6e66800
+Merge2 {
+inputs 2
+mix 0.2
+name Merge16
+xpos -4504
+ypos 11500
+disable {{1-DI_Mask}}
+}
+Dot {
+name Dot238
+xpos -4470
+ypos 12256
+}
+Switch {
+inputs 2
+which {{DIMattesCheckerON}}
+name Switch4
+xpos -4504
+ypos 13017
+}
+Dot {
+name Dot186
+xpos -4471
+ypos 14644
+}
+set Nc73ab800 [stack 0]
+Remove {
+operation keep
+channels rgb
+name Remove39
+xpos -4504
+ypos 14834
+}
+Copy {
+inputs 2
+channels all
+name Copy28
+xpos -4504
+ypos 14896
+}
+push $Nc73ab800
+Dot {
+name Dot187
+xpos -4281
+ypos 14644
+}
+Dot {
+name Dot188
+xpos -4281
+ypos 14990
+}
+Switch {
+inputs 2
+which {{enable_qc}}
+name Switch8
+xpos -4504
+ypos 14986
+}
+Reformat {
+resize none
+black_outside true
+name Reformat10
+xpos -4504
+ypos 15061
+disable {{"parent.top_left || parent.top_mid || parent.top_right || parent.bot_left || parent.bot_mid || parent.bot_right"}}
+}
+Output {
+name Output1
+xpos -4504
+ypos 15345
+}
+push $Nc6f04400
+push $Nc6f06800
+Dot {
+name Dot2
+xpos -4508
+ypos 9648
+}
+Switch {
+inputs 2
+which {{"TC_Crops_side_plate.box.x == 0 && \nTC_Crops_side_plate.box.y == 0 &&\nTC_Crops_side_plate.box.r == 2156 &&\nTC_Crops_side_plate.box.t == 1136 ? 0 : 1"}}
+name Switch5
+xpos -4345
+ypos 9644
+}
+end_group
